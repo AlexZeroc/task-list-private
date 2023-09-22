@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import ViewTaskHeader from "./components/header/ViewTaskHeader";
+import TaskList from "./components/taskComponent/TaskList";
+import Wrapper from "./components/UI/wrapper/Wrapper";
+import TaskContext from "./store/task-list";
+import DeleteModal from "./components/modal/deleteModal/DeleteModal";
+import EditModal from "./components/modal/editModal/EditModal";
+import AddModal from "./components/modal/addModal/AddModal";
 
-function App() {
+const App = () => {
+  const { modalEditView, modalDeleteView, modalAddView } =
+    useContext(TaskContext);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+      <ViewTaskHeader />
+      <TaskList />
+      {modalEditView.statusModal && <EditModal />}
+      {modalDeleteView.statusModalDelete && <DeleteModal />}
+      {modalAddView.statusAddModal && <AddModal />}
+    </Wrapper>
   );
-}
+};
 
 export default App;

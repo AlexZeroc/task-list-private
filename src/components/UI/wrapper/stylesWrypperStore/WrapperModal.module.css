@@ -1,0 +1,28 @@
+.modal {
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.modalContent {
+  background-color: #fff;
+  border-radius: 24px;
+  box-shadow: 0 6px 58px rgba(121, 145, 173, 0.196);
+  margin: 15% auto;
+  min-height: 200px;
+  padding: 40px 60px;
+  width: 40%;
+}
+
+@media only screen and (max-width: 600px) {
+  .modalContent {
+    margin: 50% auto;
+    padding: 30px;
+    width: 90%;
+  }
+}

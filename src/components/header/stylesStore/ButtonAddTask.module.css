@@ -1,0 +1,16 @@
+.button {
+  background: #713fff;
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 6px 12px rgba(113, 63, 255, 0.25);
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  outline: none;
+  padding: 13px 30px;
+}
+
+.icon {
+    margin-right: 12px;
+}

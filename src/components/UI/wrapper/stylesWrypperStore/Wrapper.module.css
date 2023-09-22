@@ -1,0 +1,11 @@
+.container {
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 0 15px;
+    width: 720px;
+}
+
+
+.pageWrapper {
+    margin: 50px 0;
+}

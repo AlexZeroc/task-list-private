@@ -1,0 +1,129 @@
+.taskCard {
+  align-items: center;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 6px 58px rgba(196, 203, 214, 0.104);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding: 22px 30px;
+}
+
+.taskName {
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+}
+
+.taskTitle {
+  color: #91929e;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 7px;
+}
+
+.task {
+  color: #0a1629;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.taskPriority {
+  display: flex;
+  flex-direction: column;
+}
+
+.priorityTitle {
+  color: #91929e;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 7px;
+}
+
+.priority {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.taskStatus {
+  text-align: center;
+  width: 100px;
+}
+
+.status {
+  background: hsla(217, 9%, 53%, 0.14);
+  border: none;
+  border-radius: 8px;
+  color: #7d8592;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  outline: none;
+  padding: 7px 14px;
+}
+
+.taskProgress {
+}
+
+.circularProgressbar {
+  display: block;
+  margin: 0 auto;
+}
+
+.circleBackground {
+  fill: none;
+  stroke: #e5e6e9;
+}
+
+.circleProgress {
+  fill: none;
+  stroke: #713fff;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+.taskActions {
+}
+
+.ActionEdit {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.ActionDelete {
+  cursor: pointer;
+}
+
+.colorLow {
+  color: #0ac947;
+}
+
+.colorMedium {
+  color: #ffbd21;
+}
+.colorHigh {
+  color: #f73446;
+}
+
+@media only screen and (max-width: 600px) {
+  .taskCard {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .taskStatus {
+    margin-top: 15px;
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .taskActions,
+  .taskProgress {
+    margin-top: 15px;
+  }
+}
