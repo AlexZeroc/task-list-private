@@ -4,7 +4,7 @@ ul {
 }
 
 .cp {
-    cursor: pointer;
+  cursor: pointer;
 }
 .flxBetween {
   display: flex;
@@ -119,6 +119,6 @@ ul {
 }
 
 .button:disabled {
-    background-color: #7d8592;
-    cursor: not-allowed;
+  background-color: #7d8592;
+  cursor: not-allowed;
 }
