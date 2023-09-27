@@ -1,0 +1,32 @@
+{
+  "extends": ["react-app", "react-app/jest"],
+  "rules": {
+    "no-console": "warn",
+    "max-len": [
+      "error",
+      1200,
+      {
+        "ignoreUrls": true
+      }
+    ],
+    "semi": ["warn", "always"],
+    "eol-last": "error",
+    "indent": [2, "tab"],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "index",
+          "sibling",
+          "parent",
+          "internal",
+          "external",
+          "builtin",
+          "object",
+          "type"
+        ],
+        "newlines-between": "always"
+      }
+    ]
+  }
+}
