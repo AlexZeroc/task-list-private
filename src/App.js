@@ -7,7 +7,7 @@ import EditModal from "./components/modal/editModal/EditModal";
 import AddModal from "./components/modal/addModal/AddModal";
 
 import { useContext } from "react";
-
+//test
 const App = () => {
 	const { modalEditView, modalDeleteView, modalAddView } =
     useContext(TaskContext);
