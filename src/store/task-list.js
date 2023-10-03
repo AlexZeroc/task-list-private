@@ -20,17 +20,21 @@ export const TaskContextProvider = ({ children }) => {
 		mutateDataTask(addStructure(DEFAULT_TASKS));
 	};
 	const editedTask = (task) => {
-		DEFAULT_TASKS.forEach((obj) => {
+		DEFAULT_TASKS.map((obj) => {
 			if (obj.id === task.id) {
-				return (obj.name=task.name, obj.priority = task.priority );
+				return (obj.name = task.name), (obj.priority = task.priority);
+			} else {
+				return obj;
 			}
 		});
 		mutateDataTask(addStructure(DEFAULT_TASKS));
 	};
 
 	const deleteTask = (task) => {
-		const indesTask = DEFAULT_TASKS.findIndex((obj) => obj.id === task);
-		delete DEFAULT_TASKS[indesTask];
+		DEFAULT_TASKS.find((obj, index) => {
+			if(obj.id === task) return DEFAULT_TASKS.splice(index, 1);
+		});
+
 		mutateDataTask(addStructure(DEFAULT_TASKS));
 	};
 
@@ -48,11 +52,14 @@ export const TaskContextProvider = ({ children }) => {
 	};
 
 	const requestEditModal = (id) => {
-		const [taskElement] = dataTask.filter((obj) => obj.id === id);
-		checkModalEditView({
-			statusModal: true,
-			...taskElement,
-		});
+		const taskElement = dataTask.find((obj) => obj.id === id);
+
+		if (Object.keys(taskElement).length > 0 || taskElement !== undefined || taskElement !== null ) {
+			checkModalEditView({
+				statusModal: true,
+				...taskElement,
+			});
+		}
 	};
 
 	const requestAddModal = () => {
@@ -60,11 +67,13 @@ export const TaskContextProvider = ({ children }) => {
 	};
 
 	const requestDeleteModal = (id) => {
-		const [taskElement] = dataTask.filter((obj) => obj.id === id);
-		checkModalDeleteView({
-			statusModalDelete: true,
-			idElement: taskElement.id,
-		});
+		const taskElement = dataTask.find((obj) => obj.id === id);
+		if (Object.keys(taskElement).length > 0 || taskElement !== undefined || taskElement !== null ) {
+			checkModalDeleteView({
+				statusModalDelete: true,
+				idElement: taskElement.id,
+			});
+		}
 	};
 
 	return (

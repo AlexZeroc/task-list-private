@@ -1,4 +1,4 @@
-import styleContainer from "./stylesTaskStore/TaskList.module.css";
+import styleContainer from "./TaskList.module.css";
 import TaskListElement from "./TaskListElement";
 
 import TaskContext from "../../store/task-list";

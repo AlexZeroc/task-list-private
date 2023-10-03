@@ -1,4 +1,4 @@
-import styleContainer from "./stylesWrypperStore/Wrapper.module.css";
+import styleContainer from "./Wrapper.module.css";
 
 const Wrapper = ({ children }) => {
 	return (

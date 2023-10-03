@@ -1,5 +1,5 @@
-import containerStyle from "./stylesStore/ViewTaskHeader.module.css";
-import ButtonAddTask from "./ButtonAddTask";
+import containerStyle from "./ViewTaskHeader.module.css";
+import AddTaskButton from "./AddTaskButton";
 
 import TaskContext from "../../store/task-list";
 
@@ -10,7 +10,7 @@ const ViewTaskHeader = () => {
 	return (
 		<div className={containerStyle.topTitle}>
 			<h1>Task List</h1>
-			<ButtonAddTask requestAddModal={requestAddModal} />
+			<AddTaskButton requestAddModal={requestAddModal} />
 		</div>
 	);
 };

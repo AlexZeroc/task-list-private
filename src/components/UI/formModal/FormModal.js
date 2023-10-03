@@ -1,16 +1,17 @@
 import containerStyle from "./FormModal.module.css";
 
 const FormModal = ({
+	defaultText,
 	priority,
-	textTaskInput,
-	setTaskInput,
-	postFormTask,
+	textTask,
+	onSetTask,
+	onPostFormTask,
 	changeStatusTask,
 	closeModal,
 	textButton,
 }) => {
 	return (
-		<form onSubmit={postFormTask}>
+		<form onSubmit={onPostFormTask}>
 			<div className={containerStyle.addEditModal}>
 				<div className={containerStyle.flxBetween}>
 					<span className={containerStyle.modalTitle}> Edit Task </span>
@@ -35,10 +36,10 @@ const FormModal = ({
 					<label htmlFor="title">Task</label>
 					<input
 						type="text"
-						placeholder="Type your task here..."
+						placeholder={defaultText}
 						name="title"
-						value={textTaskInput}
-						onChange={setTaskInput}
+						value={textTask}
+						onChange={onSetTask}
 					></input>
 				</div>
 				<div className={containerStyle.modalPriority}>
@@ -74,7 +75,7 @@ const FormModal = ({
 					<button
 						type="submit"
 						className={containerStyle.button}
-						disabled={textTaskInput.trim().length <= 0 ? true : false}
+						disabled={textTask.trim().length <= 0 ? true : false}
 					>
 						{textButton}
 					</button>

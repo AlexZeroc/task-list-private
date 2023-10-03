@@ -6,16 +6,18 @@ import { useContext, useState } from "react";
 
 const AddModal = () => {
 	const { checkModalAddView, addTask } = useContext(TaskContext);
-	const [textTaskInput, getTextTaskInput] = useState("Add task text");
+	const [textTask, setTextTask] = useState("");
 	const [priority, addPriority] = useState({ priority: 1 });
-	const setTaskInput = (event) => {
-		getTextTaskInput(event.target.value);
+	const onSetTask = (event) => {
+		setTextTask(event.target.value);
 	};
 
-	const postAddFormTask = (event) => {
+	let defaultText = "Add task text";
+
+	const onPostAddFormTask = (event) => {
 		event.preventDefault();
 		addTask({
-			name: textTaskInput,
+			name: textTask,
 			priority: priority.priority,
 			status: 1,
 			id: Math.random(),
@@ -59,10 +61,11 @@ const AddModal = () => {
 	return (
 		<WrapperModal>
 			<FormModal
+				defaultText = {defaultText}
 				priority={priority.priority}
-				textTaskInput={textTaskInput}
-				setTaskInput={setTaskInput}
-				postFormTask={postAddFormTask}
+				textTask={textTask}
+				onSetTask={onSetTask}
+				onPostFormTask={onPostAddFormTask}
 				changeStatusTask={changeStatusTask}
 				closeModal={closeAddModal}
 				textButton={"Add"}

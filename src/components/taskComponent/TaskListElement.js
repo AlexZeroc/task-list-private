@@ -1,4 +1,4 @@
-import styleContainer from "./stylesTaskStore/TaskListElement.module.css";
+import styleContainer from "./TaskListElement.module.css";
 
 const TaskListElement = ({
 	ctx,
@@ -25,7 +25,7 @@ const TaskListElement = ({
 			<div className={styleContainer.taskStatus}>
 				<button
 					className={styleContainer.status}
-					onClick={changeStatus.bind(this, ctx.id)}
+					onClick={() => changeStatus(ctx.id)}
 				>
 					{ctx.statusText}
 				</button>
@@ -52,7 +52,7 @@ const TaskListElement = ({
 						strokeWidth="2px"
 						transform="rotate(-90 12 12)"
 						style={{
-							strokeDasharray: 69.115,
+							strokeDasharray: `${ctx.statusProgress}`,
 							strokeDashoffset: `${ctx.statusProgress}`,
 						}}
 					></circle>
@@ -66,7 +66,7 @@ const TaskListElement = ({
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 					className={styleContainer.ActionEdit}
-					onClick={requestEditModal.bind(this, ctx.id)}
+					onClick={() => requestEditModal(ctx.id)}
 				>
 					<path
 						fillRule="evenodd"
@@ -82,7 +82,7 @@ const TaskListElement = ({
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 					className={styleContainer.ActionDelete}
-					onClick={requestDeleteModal.bind(this, ctx.id)}
+					onClick={()=>requestDeleteModal(ctx.id)}
 				>
 					<path
 						fillRule="evenodd"
