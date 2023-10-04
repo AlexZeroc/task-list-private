@@ -3,7 +3,7 @@ import containerStyle from "./FormModal.module.css";
 const FormModal = ({
 	defaultText,
 	priority,
-	textTask,
+	taskText,
 	onSetTask,
 	onPostFormTask,
 	changeStatusTask,
@@ -38,7 +38,7 @@ const FormModal = ({
 						type="text"
 						placeholder={defaultText}
 						name="title"
-						value={textTask}
+						value={taskText}
 						onChange={onSetTask}
 					></input>
 				</div>
@@ -75,7 +75,7 @@ const FormModal = ({
 					<button
 						type="submit"
 						className={containerStyle.button}
-						disabled={textTask.trim().length <= 0 ? true : false}
+						disabled={taskText.trim().length <= 0}
 					>
 						{textButton}
 					</button>

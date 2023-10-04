@@ -20,21 +20,20 @@ export const TaskContextProvider = ({ children }) => {
 		mutateDataTask(addStructure(DEFAULT_TASKS));
 	};
 	const editedTask = (task) => {
-		DEFAULT_TASKS.map((obj) => {
-			if (obj.id === task.id) {
-				return (obj.name = task.name), (obj.priority = task.priority);
-			} else {
-				return obj;
-			}
-		});
+		const valueEditElement = DEFAULT_TASKS.find((obj)=>obj.id === task.id);
+		const indexEditElement = DEFAULT_TASKS.findIndex((obj)=>obj.id === task.id);
+		const editElement =  {
+			...valueEditElement,
+			name: task.name, 
+			priority: task.priority
+		};
+		DEFAULT_TASKS.splice(indexEditElement, 1, editElement);
 		mutateDataTask(addStructure(DEFAULT_TASKS));
 	};
 
 	const deleteTask = (task) => {
-		DEFAULT_TASKS.find((obj, index) => {
-			if(obj.id === task) return DEFAULT_TASKS.splice(index, 1);
-		});
-
+		const indexDeleteTask = DEFAULT_TASKS.findIndex((obj) => obj.id === task);
+		DEFAULT_TASKS.splice(indexDeleteTask, 1);
 		mutateDataTask(addStructure(DEFAULT_TASKS));
 	};
 
@@ -54,12 +53,15 @@ export const TaskContextProvider = ({ children }) => {
 	const requestEditModal = (id) => {
 		const taskElement = dataTask.find((obj) => obj.id === id);
 
-		if (Object.keys(taskElement).length > 0 || taskElement !== undefined || taskElement !== null ) {
-			checkModalEditView({
-				statusModal: true,
-				...taskElement,
-			});
+		if(!taskElement) {
+			return;
 		}
+
+		checkModalEditView({
+			statusModal: true,
+			...taskElement,
+		});
+		
 	};
 
 	const requestAddModal = () => {
@@ -68,12 +70,14 @@ export const TaskContextProvider = ({ children }) => {
 
 	const requestDeleteModal = (id) => {
 		const taskElement = dataTask.find((obj) => obj.id === id);
-		if (Object.keys(taskElement).length > 0 || taskElement !== undefined || taskElement !== null ) {
-			checkModalDeleteView({
-				statusModalDelete: true,
-				idElement: taskElement.id,
-			});
+		if(!taskElement) {
+			return;
 		}
+		checkModalDeleteView({
+			statusModalDelete: true,
+			idElement: taskElement.id,
+		});
+		
 	};
 
 	return (

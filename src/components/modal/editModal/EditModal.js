@@ -7,18 +7,18 @@ import { useContext, useState } from "react";
 const EditModal = () => {
 	const { modalEditView, checkModalEditView, editedTask } =
     useContext(TaskContext);
-	const [textTask, setTextTask] = useState('');
+	const [taskText, setTaskText] = useState('');
 	let defaultText = modalEditView.name;
 
 	const onSetTask = (event) => {
-		setTextTask(event.target.value);
+		setTaskText(event.target.value);
 	};
 
 	const onPostEditFormTask = (event) => {
 		event.preventDefault();
 		editedTask({
 			id: modalEditView.id,
-			name: textTask,
+			name: taskText,
 			priority: modalEditView.priority,
 		});
 		checkModalEditView((prevState) => ({
@@ -65,7 +65,7 @@ const EditModal = () => {
 			<FormModal
 				defaultText={defaultText}
 				priority={modalEditView.priority}
-				textTask={textTask}
+				taskText={taskText}
 				onSetTask={onSetTask}
 				onPostFormTask={onPostEditFormTask}
 				changeStatusTask={changeStatusTask}
