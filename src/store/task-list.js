@@ -20,20 +20,20 @@ export const TaskContextProvider = ({ children }) => {
 		mutateDataTask(addStructure(DEFAULT_TASKS));
 	};
 	const editedTask = (task) => {
-		const valueEditElement = DEFAULT_TASKS.find((obj)=>obj.id === task.id);
-		const indexEditElement = DEFAULT_TASKS.findIndex((obj)=>obj.id === task.id);
-		const editElement =  {
-			...valueEditElement,
+		const editArrayTask = DEFAULT_TASKS.map((elementTask, index) => elementTask.id === task.id?{
+			...elementTask,
 			name: task.name, 
-			priority: task.priority
-		};
-		DEFAULT_TASKS.splice(indexEditElement, 1, editElement);
+			priority: task.priority,
+		}:{...elementTask});
+        
+		DEFAULT_TASKS.splice(0, editArrayTask.length, ...editArrayTask);
+		
 		mutateDataTask(addStructure(DEFAULT_TASKS));
 	};
 
 	const deleteTask = (task) => {
-		const indexDeleteTask = DEFAULT_TASKS.findIndex((obj) => obj.id === task);
-		DEFAULT_TASKS.splice(indexDeleteTask, 1);
+		const deleteTaskIndex = DEFAULT_TASKS.findIndex((obj) => obj.id === task);
+		DEFAULT_TASKS.splice(deleteTaskIndex, 1);
 		mutateDataTask(addStructure(DEFAULT_TASKS));
 	};
 
