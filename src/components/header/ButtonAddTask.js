@@ -1,9 +1,9 @@
-import containerStyle from "./stylesStore/ButtonAddTask.module.css";
+import styles  from "./ButtonAddTask.module.css";
 
 const ButtonAddTask = ({ requestAddModal }) => {
 	return (
-		<button onClick={requestAddModal} className={containerStyle.button}>
-			<span className={containerStyle.icon}>
+		<button onClick={requestAddModal} className={styles.button}>
+			<span className={styles.icon}>
 				<svg
 					width="14"
 					height="14"

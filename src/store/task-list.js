@@ -20,11 +20,22 @@ export const TaskContextProvider = ({ children }) => {
 		mutateDataTask(addStructure(DEFAULT_TASKS));
 	};
 	const editedTask = (task) => {
-		const editArrayTask = DEFAULT_TASKS.map((elementTask, index) => elementTask.id === task.id?{
-			...elementTask,
-			name: task.name, 
-			priority: task.priority,
-		}:{...elementTask});
+		const editArrayTask = DEFAULT_TASKS.map((elementTask) => {
+			if(elementTask.id === task.id) {
+                
+				return{ 
+					...elementTask,
+					name: task.name, 
+					priority: task.priority,
+				};
+
+			} else{
+
+				return {...elementTask};
+                
+			}
+		  }
+		);
         
 		DEFAULT_TASKS.splice(0, editArrayTask.length, ...editArrayTask);
 		

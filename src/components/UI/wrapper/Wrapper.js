@@ -1,9 +1,9 @@
-import styleContainer from "./Wrapper.module.css";
+import styles from "./Wrapper.module.css";
 
 const Wrapper = ({ children }) => {
 	return (
-		<div className={styleContainer.container}>
-			<div className={styleContainer.pageWrapper}>{children}</div>
+		<div className={styles.container}>
+			<div className={styles.pageWrapper}>{children}</div>
 		</div>
 	);
 };

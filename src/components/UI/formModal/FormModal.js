@@ -1,4 +1,4 @@
-import containerStyle from "./FormModal.module.css";
+import styles from "./FormModal.module.css";
 
 const FormModal = ({
 	defaultText,
@@ -12,16 +12,16 @@ const FormModal = ({
 }) => {
 	return (
 		<form onSubmit={onPostFormTask}>
-			<div className={containerStyle.addEditModal}>
-				<div className={containerStyle.flxBetween}>
-					<span className={containerStyle.modalTitle}> Edit Task </span>
+			<div className={styles.addEditModal}>
+				<div className={styles.flxBetween}>
+					<span className={styles.modalTitle}> Edit Task </span>
 					<svg
 						width="17"
 						height="16"
 						viewBox="0 0 17 16"
 						fill="none"
 						xmlns="http://www.w3.org/2000/svg"
-						className={containerStyle.cp}
+						className={styles.cp}
 						onClick={closeModal}
 					>
 						<path
@@ -32,7 +32,7 @@ const FormModal = ({
 						></path>
 					</svg>
 				</div>
-				<div className={containerStyle.input}>
+				<div className={styles.input}>
 					<label htmlFor="title">Task</label>
 					<input
 						type="text"
@@ -42,28 +42,28 @@ const FormModal = ({
 						onChange={onSetTask}
 					></input>
 				</div>
-				<div className={containerStyle.modalPriority}>
+				<div className={styles.modalPriority}>
 					<span>Priority</span>
-					<ul className={containerStyle.priorityButtons}>
+					<ul className={styles.priorityButtons}>
 						<li
-							className={`${priority === 3 && containerStyle.highSelected} ${
-								containerStyle.high
+							className={`${priority === 3 && styles.highSelected} ${
+								styles.high
 							}`}
 							onClick={(event) => changeStatusTask(event)}
 						>
               high
 						</li>
 						<li
-							className={`${priority === 2 && containerStyle.mediumSelected} ${
-								containerStyle.medium
+							className={`${priority === 2 && styles.mediumSelected} ${
+								styles.medium
 							}`}
 							onClick={(event) => changeStatusTask(event)}
 						>
               medium
 						</li>
 						<li
-							className={`${priority === 1 && containerStyle.lowSelected} ${
-								containerStyle.low
+							className={`${priority === 1 && styles.lowSelected} ${
+								styles.low
 							}`}
 							onClick={(event) => changeStatusTask(event)}
 						>
@@ -71,10 +71,10 @@ const FormModal = ({
 						</li>
 					</ul>
 				</div>
-				<div className={containerStyle.flxRight}>
+				<div className={styles.flxRight}>
 					<button
 						type="submit"
-						className={containerStyle.button}
+						className={styles.button}
 						disabled={taskText.trim().length <= 0}
 					>
 						{textButton}

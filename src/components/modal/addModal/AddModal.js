@@ -1,4 +1,4 @@
-import WrapperModal from "../../UI/wrapper/WrapperModal";
+import ModalWrapper from "../../UI/wrapper/ModalWrapper";
 import FormModal from "../../UI/formModal/FormModal";
 import TaskContext from "../../../store/task-list";
 
@@ -59,7 +59,7 @@ const AddModal = () => {
 	};
 
 	return (
-		<WrapperModal>
+		<ModalWrapper>
 			<FormModal
 				defaultText = {defaultText}
 				priority={priority.priority}
@@ -70,7 +70,7 @@ const AddModal = () => {
 				closeModal={closeAddModal}
 				textButton={"Add"}
 			/>
-		</WrapperModal>
+		</ModalWrapper>
 	);
 };
 

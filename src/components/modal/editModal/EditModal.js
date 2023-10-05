@@ -1,4 +1,4 @@
-import WrapperModal from "../../UI/wrapper/WrapperModal";
+import WrapperModal from "../../UI/wrapper/ModalWrapper";
 import TaskContext from "../../../store/task-list";
 import FormModal from "../../UI/formModal/FormModal";
 

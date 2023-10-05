@@ -1,6 +1,6 @@
-import containerStyle from "./DeleteModal.module.css";
+import styles from "./DeleteModal.module.css";
 
-import WrapperModal from "../../UI/wrapper/WrapperModal";
+import ModalWrapper from "../../UI/wrapper/ModalWrapper";
 import TaskContext from "../../../store/task-list";
 
 import { useContext } from "react";
@@ -16,15 +16,15 @@ const DeleteModal = () => {
 		}));
 	};
 	return (
-		<WrapperModal>
-			<div className={containerStyle.deleteModal}>
+		<ModalWrapper>
+			<div className={styles.deleteModal}>
 				<p>Are you sure you want to delete this task?</p>
-				<div className={containerStyle[`deleteModal__actions`]}>
-					<button onClick={handleDeleteTaskElement} className={containerStyle.button}>
+				<div className={styles[`deleteModal__actions`]}>
+					<button onClick={handleDeleteTaskElement} className={styles.button}>
             Delete
 					</button>
 					<button
-						className={containerStyle.outlineButton}
+						className={styles.outlineButton}
 						onClick={() =>
 							checkModalDeleteView((prevState) => ({
 								...prevState,
@@ -36,7 +36,7 @@ const DeleteModal = () => {
 					</button>
 				</div>
 			</div>
-		</WrapperModal>
+		</ModalWrapper>
 	);
 };
 
