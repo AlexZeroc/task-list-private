@@ -1,12 +1,12 @@
 import DEFAULT_TASKS from "./ConstantsVariable";
-import addStructure from "./addStructureFunc";
+import setStructureTaskData from "./setStructureTaskData";
 
 import React, { useState } from "react";
 
 const TaskContext = React.createContext();
 
 export const TaskContextProvider = ({ children }) => {
-	const [ taskData, setTaskData ] = useState(addStructure(DEFAULT_TASKS));
+	const [ taskData, setTaskData ] = useState(setStructureTaskData(DEFAULT_TASKS));
 	const [ editView, setEditView ] = useState({
 		statusEditView: false,
 	});
@@ -14,9 +14,8 @@ export const TaskContextProvider = ({ children }) => {
 		statusAddView: false,
 	});
 	const [ deleteView, setDeleteView ] = useState({statusDeleteView:false});
-
 	const addTask = (task) => {
-		setTaskData(prevState => addStructure([ task, ...prevState ]));
+		setTaskData(prevState => setStructureTaskData([ task, ...prevState ]));
 	};
 	const editedTask = (task) => {
 		const editTaskData = taskData.map((elementTask) => {
@@ -36,26 +35,28 @@ export const TaskContextProvider = ({ children }) => {
 		  }
 		);
         		
-		setTaskData(addStructure(editTaskData));
+		setTaskData(setStructureTaskData(editTaskData));
 	};
 
 	const deleteTask = (task) => {
 		const filterTaskData = taskData.filter((obj) => obj.id !== task);
 		
-		setTaskData(addStructure(filterTaskData));
+		setTaskData(setStructureTaskData(filterTaskData));
 	};
 
 	const setStatus = (id) => {
-		taskData.forEach((obj) => {
+		const changedStatusTaskElement = taskData.map((obj) => {
 			if (obj.id === id) {
 				if (obj.status <= 2) {
-					return obj.status += 1;
+					return { ...obj, status: obj.status + 1};
 				} else {
-					return obj.status = 1;
+					return { ...obj, status: 1};
 				}
+			}  else {
+				return obj; 
 			}
 		});
-		setTaskData(addStructure(taskData));
+		setTaskData(setStructureTaskData(changedStatusTaskElement));
 	};
 
 	const showEditView = (id) => {

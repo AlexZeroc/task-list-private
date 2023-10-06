@@ -22,7 +22,7 @@ const statusToProgressMap = {
 	3: 0
 };
 
-const addStructure = (arr) => {
+const setStructureTaskData = (arr) => {
 	const dataTask = arr.map((obj) => {
 		return {
 			...obj,
@@ -36,4 +36,4 @@ const addStructure = (arr) => {
 	return dataTask;
 };
 
-export default addStructure;
+export default setStructureTaskData;
