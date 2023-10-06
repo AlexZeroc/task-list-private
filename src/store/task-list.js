@@ -1,25 +1,25 @@
 import DEFAULT_TASKS from "./ConstantsVariable";
-import setStructureTaskData from "./setStructureTaskData";
+import setTaskDataStructure from "./setTaskDataStructure";
 
 import React, { useState } from "react";
 
 const TaskContext = React.createContext();
 
-export const TaskContextProvider = ({ children }) => {
-	const [ taskData, setTaskData ] = useState(setStructureTaskData(DEFAULT_TASKS));
-	const [ editView, setEditView ] = useState({
+export const TaskContextProvider = ( { children } ) => {
+	const [ taskData, setTaskData ] = useState( setTaskDataStructure( DEFAULT_TASKS ) );
+	const [ editView, setEditView ] = useState( {
 		statusEditView: false,
-	});
-	const [ addView, setAddView ] = useState({
+	} );
+	const [ addView, setAddView ] = useState( {
 		statusAddView: false,
-	});
-	const [ deleteView, setDeleteView ] = useState({statusDeleteView:false});
-	const addTask = (task) => {
-		setTaskData(prevState => setStructureTaskData([ task, ...prevState ]));
+	} );
+	const [ deleteView, setDeleteView ] = useState( {statusDeleteView: false} );
+	const addTask = ( task ) => {
+		setTaskData( prevState => setTaskDataStructure( [ task, ...prevState ] ) );
 	};
-	const editedTask = (task) => {
-		const editTaskData = taskData.map((elementTask) => {
-			if(elementTask.id === task.id) {
+	const editedTask = ( task ) => {
+		const editTaskData = taskData.map( ( elementTask ) => {
+			if( elementTask.id === task.id ) {
                 
 				return{ 
 					...elementTask,
@@ -35,19 +35,19 @@ export const TaskContextProvider = ({ children }) => {
 		  }
 		);
         		
-		setTaskData(setStructureTaskData(editTaskData));
+		setTaskData( setTaskDataStructure( editTaskData ) );
 	};
 
-	const deleteTask = (task) => {
-		const filterTaskData = taskData.filter((obj) => obj.id !== task);
+	const deleteTask = ( task ) => {
+		const filterTaskData = taskData.filter( ( obj ) => obj.id !== task );
 		
-		setTaskData(setStructureTaskData(filterTaskData));
+		setTaskData( setTaskDataStructure( filterTaskData ) );
 	};
 
-	const setStatus = (id) => {
-		const changedStatusTaskElement = taskData.map((obj) => {
-			if (obj.id === id) {
-				if (obj.status <= 2) {
+	const setTaskStatus = ( id ) => {
+		const changedStatusTaskElement = taskData.map( ( obj ) => {
+			if ( obj.id === id ) {
+				if ( obj.status <= 2 ) {
 					return { ...obj, status: obj.status + 1};
 				} else {
 					return { ...obj, status: 1};
@@ -55,37 +55,37 @@ export const TaskContextProvider = ({ children }) => {
 			}  else {
 				return obj; 
 			}
-		});
-		setTaskData(setStructureTaskData(changedStatusTaskElement));
+		} );
+		setTaskData( setTaskDataStructure( changedStatusTaskElement ) );
 	};
 
-	const showEditView = (id) => {
-		const taskElement = taskData.find((obj) => obj.id === id);
+	const showEditView = ( id ) => {
+		const taskElement = taskData.find( ( obj ) => obj.id === id );
 
-		if(!taskElement) {
+		if( !taskElement ) {
 			return;
 		}
 
-		setEditView({
+		setEditView( {
 			statusEditView: true,
 			...taskElement,
-		});
+		} );
 		
 	};
 
 	const showAddView = () => {
-		setAddView((prevState) => ({ ...prevState, statusAddView: true }));
+		setAddView( ( prevState ) => ( { ...prevState, statusAddView: true } ) );
 	};
 
-	const showDeleteView = (id) => {
-		const taskElement = taskData.find((obj) => obj.id === id);
-		if(!taskElement) {
+	const showDeleteView = ( id ) => {
+		const taskElement = taskData.find( ( obj ) => obj.id === id );
+		if( !taskElement ) {
 			return;
 		}
-		setDeleteView({
+		setDeleteView( {
 			statusDeleteView: true,
 			idElement: taskElement.id,
-		});
+		} );
 		
 	};
 
@@ -93,17 +93,17 @@ export const TaskContextProvider = ({ children }) => {
 		<TaskContext.Provider
 			value={{
 				data: taskData,
-				setStatus: setStatus,
+				setTaskStatus: setTaskStatus,
 				editView: editView,
 				addView: addView,
 				showEditView: showEditView,
 				setEditView: setEditView,
 				editedTask: editedTask,
 				showAddView: showAddView,
-				setAddView : setAddView,
+				setAddView: setAddView,
 				addTask: addTask,
 				deleteView: deleteView,
-				showDeleteView : showDeleteView,
+				showDeleteView: showDeleteView,
 				setDeleteView: setDeleteView,
 				deleteTask: deleteTask,
 			}}

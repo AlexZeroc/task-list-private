@@ -15,6 +15,15 @@
     "block-spacing": "error",
     "brace-style": "error",
     "no-extra-parens": "error",
+    "space-in-parens": ["error", "always"],
+    "key-spacing": [
+      "error",
+      {
+        "beforeColon": false,
+        "afterColon": true,
+        "mode": "strict"
+      }
+    ],
     "max-len": [
       "error",
       1200,

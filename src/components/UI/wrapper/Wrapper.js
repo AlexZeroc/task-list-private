@@ -1,6 +1,6 @@
 import styles from "./Wrapper.module.css";
 
-const Wrapper = ({ children }) => {
+const Wrapper = ( { children } ) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.pageWrapper}>{children}</div>

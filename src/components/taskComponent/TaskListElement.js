@@ -1,51 +1,53 @@
-import styleContainer from "./TaskListElement.module.css";
+import styles from "./TaskListElement.module.css";
 
-const TaskListElement = ({
+import { Link } from "react-router-dom";
+
+const TaskListElement = ( {
 	task,
-	setStatus,
+	setTaskStatus,
 	showEditView,
 	showDeleteView,
-}) => {
+} ) => {
 	return (
-		<div className={styleContainer.taskCard}>
-			<div className={styleContainer.taskName}>
-				<span className={styleContainer.taskTitle}>Task</span>
-				<span className={styleContainer.task}>{task.name}</span>
+		<div className={styles.taskCard}>
+			<div className={styles.taskName}>
+				<span className={styles.taskTitle}>Task</span>
+				<span className={styles.task}>{task.name}</span>
 			</div>
-			<div className={styleContainer.taskPriority}>
-				<span className={styleContainer.priorityTitle}>Priority</span>
+			<div className={styles.taskPriority}>
+				<span className={styles.priorityTitle}>Priority</span>
 				<span
-					className={`${styleContainer.priority} ${
-						styleContainer[task.priorityColor]
+					className={`${styles.priority} ${
+						styles[task.priorityColor]
 					}`}
 				>
 					{task.priorityText}
 				</span>
 			</div>
-			<div className={styleContainer.taskStatus}>
+			<div className={styles.taskStatus}>
 				<button
-					className={styleContainer.status}
-					onClick={() => setStatus(task.id)}
+					className={styles.status}
+					onClick={() => setTaskStatus( task.id )}
 				>
 					{task.statusText}
 				</button>
 			</div>
-			<div className={styleContainer.taskProgress}>
+			<div className={styles.taskProgress}>
 				<svg
 					width="24"
 					height="24"
 					viewBox="0 0 24 24"
-					className={styleContainer.circularProgressbar}
+					className={styles.circularProgressbar}
 				>
 					<circle
-						className={styleContainer.circleBackground}
+						className={styles.circleBackground}
 						cx="12"
 						cy="12"
 						r="11"
 						strokeWidth="2px"
 					></circle>
 					<circle
-						className={styleContainer.circleProgress}
+						className={styles.circleProgress}
 						cx="12"
 						cy="12"
 						r="11"
@@ -58,15 +60,15 @@ const TaskListElement = ({
 					></circle>
 				</svg>
 			</div>
-			<div className={styleContainer.taskActions}>
+			<div className={styles.taskActions}>
 				<svg
 					width="22"
 					height="22"
 					viewBox="0 0 22 22"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
-					className={styleContainer.ActionEdit}
-					onClick={() => showEditView(task.id)}
+					className={styles.ActionEdit}
+					onClick={() => showEditView( task.id )}
 				>
 					<path
 						fillRule="evenodd"
@@ -81,8 +83,8 @@ const TaskListElement = ({
 					viewBox="0 0 20 22"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
-					className={styleContainer.ActionDelete}
-					onClick={() => showDeleteView(task.id)}
+					className={styles.ActionDelete}
+					onClick={() => showDeleteView( task.id )}
 				>
 					<path
 						fillRule="evenodd"
@@ -91,6 +93,36 @@ const TaskListElement = ({
 						fill="#F65160"
 					></path>
 				</svg>
+				<Link to={`${task.id}`}>
+					<svg xmlns="http://www.w3.org/2000/svg" 
+						width="24" 
+						height="22" 
+						viewBox="0 0 24 24" 
+						fill="none" 
+						stroke="#000000" 
+						stroke-width="2" 
+						stroke-linecap="round" 
+						stroke-linejoin="round"
+						className={styles.ActionNotes}
+					>
+						<path
+                    	fillRule="evenodd"
+							clipRule="evenodd"
+							d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"
+							fill="#4169e1"
+
+						/>
+                        
+						<path 				
+							fillRule="evenodd"
+							clipRule="evenodd"
+							d="M14 3v5h5M16 13H8M16 17H8M10 9H8"
+							fill="#4169e1"
+
+						/>
+					</svg>
+				</Link>
+
 			</div>
 		</div>
 	);

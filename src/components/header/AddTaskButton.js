@@ -1,6 +1,6 @@
 import styles from "./AddTaskButton.module.css";
 
-const AddTaskButton = ({ showAddView }) => {
+const AddTaskButton = ( { showAddView } ) => {
 	return (
 		<button onClick={ showAddView } className={styles.button}>
 			<span className={styles.icon}>

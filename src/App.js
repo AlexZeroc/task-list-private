@@ -1,3 +1,4 @@
+
 import ViewTaskHeader from "./components/header/ViewTaskHeader";
 import TaskList from "./components/taskComponent/TaskList";
 import Wrapper from "./components/UI/wrapper/Wrapper";
@@ -8,9 +9,13 @@ import AddModal from "./components/modal/addModal/AddModal";
 
 import { useContext } from "react";
 
+
+
+
+
 const App = () => {
 	const { editView, deleteView, addView } =
-    useContext(TaskContext);
+    useContext( TaskContext );
 	return (
 		<Wrapper>
 			<ViewTaskHeader />

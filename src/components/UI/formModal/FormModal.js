@@ -1,6 +1,6 @@
 import styles from "./FormModal.module.css";
 
-const FormModal = ({
+const FormModal = ( {
 	defaultText,
 	priority,
 	taskText,
@@ -9,7 +9,7 @@ const FormModal = ({
 	onCheckStatusTask,
 	closeModal,
 	textButton,
-}) => {
+} ) => {
 	return (
 		<form onSubmit={onPostFormTask}>
 			<div className={styles.addEditModal}>
@@ -49,7 +49,7 @@ const FormModal = ({
 							className={`${priority === 3 && styles.highSelected} ${
 								styles.high
 							}`}
-							onClick={(event) => onCheckStatusTask(event)}
+							onClick={( event ) => onCheckStatusTask( event )}
 						>
               high
 						</li>
@@ -57,7 +57,7 @@ const FormModal = ({
 							className={`${priority === 2 && styles.mediumSelected} ${
 								styles.medium
 							}`}
-							onClick={(event) => onCheckStatusTask(event)}
+							onClick={( event ) => onCheckStatusTask( event )}
 						>
               medium
 						</li>
@@ -65,7 +65,7 @@ const FormModal = ({
 							className={`${priority === 1 && styles.lowSelected} ${
 								styles.low
 							}`}
-							onClick={(event) => onCheckStatusTask(event)}
+							onClick={( event ) => onCheckStatusTask( event )}
 						>
               low
 						</li>

@@ -6,14 +6,14 @@ import TaskContext from "../../store/task-list";
 import { useContext } from "react";
 
 const TaskList = () => {
-	const { data, setStatus, showEditView, showDeleteView } =
-    useContext(TaskContext);
+	const { data, setTaskStatus, showEditView, showDeleteView } =
+    useContext( TaskContext );
 
-	let variable = data.map((task) => 
+	let variable = data.map( ( task ) => 
 		<TaskListElement
 			key={task.id}
 			task={task}
-			setStatus={setStatus}
+			setTaskStatus={setTaskStatus}
 			showEditView={showEditView}
 			showDeleteView={showDeleteView}
 		/>

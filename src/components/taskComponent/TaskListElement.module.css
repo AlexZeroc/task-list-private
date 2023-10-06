@@ -94,8 +94,12 @@
 
 .ActionDelete {
   cursor: pointer;
+  margin-right: 20px;
 }
 
+.ActionNotes {
+  cursor: pointer;
+}
 .colorLow {
   color: #0ac947;
 }

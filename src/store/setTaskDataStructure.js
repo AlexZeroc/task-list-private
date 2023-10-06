@@ -22,18 +22,18 @@ const statusToProgressMap = {
 	3: 0
 };
 
-const setStructureTaskData = (arr) => {
-	const dataTask = arr.map((obj) => {
+const setTaskDataStructure = ( arr ) => {
+	const dataTask = arr.map( ( obj ) => {
 		return {
 			...obj,
 			priorityText: priorityToLabelText[obj.priority],
 			priorityColor: priorityToColorMap[obj.priority] ,
 			statusText: statusToTextMap[obj.status],
-			statusProgress:  statusToProgressMap[obj.status],
+			statusProgress: statusToProgressMap[obj.status],
 		};
-	});
+	} );
 
 	return dataTask;
 };
 
-export default setStructureTaskData;
+export default setTaskDataStructure ;
