@@ -6,11 +6,11 @@ import TaskContext from "../../store/task-list";
 import { useContext } from "react";
 
 const ViewTaskHeader = () => {
-	const { requestAddModal } = useContext(TaskContext);
+	const { showAddView  } = useContext(TaskContext);
 	return (
 		<div className={styles.topTitle}>
 			<h1>Task List</h1>
-			<AddTaskButton requestAddModal={requestAddModal} />
+			<AddTaskButton  showAddView ={ showAddView } />
 		</div>
 	);
 };

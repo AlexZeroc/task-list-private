@@ -6,21 +6,20 @@ import React, { useState } from "react";
 const TaskContext = React.createContext();
 
 export const TaskContextProvider = ({ children }) => {
-	const [dataTask, mutateDataTask] = useState(addStructure(DEFAULT_TASKS));
-	const [modalEditView, checkModalEditView] = useState({
-		statusModal: false,
+	const [ taskData, setTaskData ] = useState(addStructure(DEFAULT_TASKS));
+	const [ editView, setEditView ] = useState({
+		statusEditView: false,
 	});
-	const [modalAddView, checkModalAddView] = useState({
-		statusAddModal: false,
+	const [ addView, setAddView ] = useState({
+		statusAddView: false,
 	});
-	const [modalDeleteView, checkModalDeleteView] = useState(false);
+	const [ deleteView, setDeleteView ] = useState({statusDeleteView:false});
 
 	const addTask = (task) => {
-		DEFAULT_TASKS.unshift(task);
-		mutateDataTask(addStructure(DEFAULT_TASKS));
+		setTaskData(prevState => addStructure([ task, ...prevState ]));
 	};
 	const editedTask = (task) => {
-		const editArrayTask = DEFAULT_TASKS.map((elementTask) => {
+		const editTaskData = taskData.map((elementTask) => {
 			if(elementTask.id === task.id) {
                 
 				return{ 
@@ -36,56 +35,54 @@ export const TaskContextProvider = ({ children }) => {
 			}
 		  }
 		);
-        
-		DEFAULT_TASKS.splice(0, editArrayTask.length, ...editArrayTask);
-		
-		mutateDataTask(addStructure(DEFAULT_TASKS));
+        		
+		setTaskData(addStructure(editTaskData));
 	};
 
 	const deleteTask = (task) => {
-		const deleteTaskIndex = DEFAULT_TASKS.findIndex((obj) => obj.id === task);
-		DEFAULT_TASKS.splice(deleteTaskIndex, 1);
-		mutateDataTask(addStructure(DEFAULT_TASKS));
+		const filterTaskData = taskData.filter((obj) => obj.id !== task);
+		
+		setTaskData(addStructure(filterTaskData));
 	};
 
-	const changeStatus = (id) => {
-		DEFAULT_TASKS.forEach((obj) => {
+	const setStatus = (id) => {
+		taskData.forEach((obj) => {
 			if (obj.id === id) {
 				if (obj.status <= 2) {
-					return (obj.status += 1);
+					return obj.status += 1;
 				} else {
-					return (obj.status = 1);
+					return obj.status = 1;
 				}
 			}
 		});
-		mutateDataTask(addStructure(DEFAULT_TASKS));
+		setTaskData(addStructure(taskData));
 	};
 
-	const requestEditModal = (id) => {
-		const taskElement = dataTask.find((obj) => obj.id === id);
+	const showEditView = (id) => {
+		const taskElement = taskData.find((obj) => obj.id === id);
 
 		if(!taskElement) {
 			return;
 		}
 
-		checkModalEditView({
-			statusModal: true,
+		setEditView({
+			statusEditView: true,
 			...taskElement,
 		});
 		
 	};
 
-	const requestAddModal = () => {
-		checkModalAddView((prevState) => ({ ...prevState, statusAddModal: true }));
+	const showAddView = () => {
+		setAddView((prevState) => ({ ...prevState, statusAddView: true }));
 	};
 
-	const requestDeleteModal = (id) => {
-		const taskElement = dataTask.find((obj) => obj.id === id);
+	const showDeleteView = (id) => {
+		const taskElement = taskData.find((obj) => obj.id === id);
 		if(!taskElement) {
 			return;
 		}
-		checkModalDeleteView({
-			statusModalDelete: true,
+		setDeleteView({
+			statusDeleteView: true,
 			idElement: taskElement.id,
 		});
 		
@@ -94,19 +91,19 @@ export const TaskContextProvider = ({ children }) => {
 	return (
 		<TaskContext.Provider
 			value={{
-				data: dataTask,
-				changeStatus: changeStatus,
-				modalEditView: modalEditView,
-				modalAddView: modalAddView,
-				requestEditModal: requestEditModal,
-				checkModalEditView: checkModalEditView,
+				data: taskData,
+				setStatus: setStatus,
+				editView: editView,
+				addView: addView,
+				showEditView: showEditView,
+				setEditView: setEditView,
 				editedTask: editedTask,
-				requestAddModal: requestAddModal,
-				checkModalAddView: checkModalAddView,
+				showAddView: showAddView,
+				setAddView : setAddView,
 				addTask: addTask,
-				modalDeleteView: modalDeleteView,
-				requestDeleteModal: requestDeleteModal,
-				checkModalDeleteView: checkModalDeleteView,
+				deleteView: deleteView,
+				showDeleteView : showDeleteView,
+				setDeleteView: setDeleteView,
 				deleteTask: deleteTask,
 			}}
 		>

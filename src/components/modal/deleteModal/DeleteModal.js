@@ -5,14 +5,14 @@ import TaskContext from "../../../store/task-list";
 
 import { useContext } from "react";
 const DeleteModal = () => {
-	const { checkModalDeleteView, deleteTask, modalDeleteView } =
+	const { setDeleteView, deleteTask, deleteView } =
     useContext(TaskContext);
 
 	const handleDeleteTaskElement = () => {
-		deleteTask(modalDeleteView.idElement);
-		checkModalDeleteView((prevState) => ({
+		deleteTask(deleteView.idElement);
+		setDeleteView((prevState) => ({
 			...prevState,
-			statusModalDelete: false,
+			statusDeleteView: false,
 		}));
 	};
 	return (
@@ -26,9 +26,9 @@ const DeleteModal = () => {
 					<button
 						className={styles.outlineButton}
 						onClick={() =>
-							checkModalDeleteView((prevState) => ({
+							setDeleteView((prevState) => ({
 								...prevState,
-								statusModalDelete: false,
+								statusDeleteView: false,
 							}))
 						}
 					>

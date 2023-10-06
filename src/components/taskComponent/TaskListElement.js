@@ -1,33 +1,33 @@
 import styleContainer from "./TaskListElement.module.css";
 
 const TaskListElement = ({
-	ctx,
-	changeStatus,
-	requestEditModal,
-	requestDeleteModal,
+	task,
+	setStatus,
+	showEditView,
+	showDeleteView,
 }) => {
 	return (
 		<div className={styleContainer.taskCard}>
 			<div className={styleContainer.taskName}>
 				<span className={styleContainer.taskTitle}>Task</span>
-				<span className={styleContainer.task}>{ctx.name}</span>
+				<span className={styleContainer.task}>{task.name}</span>
 			</div>
 			<div className={styleContainer.taskPriority}>
 				<span className={styleContainer.priorityTitle}>Priority</span>
 				<span
 					className={`${styleContainer.priority} ${
-						styleContainer[ctx.priorityColor]
+						styleContainer[task.priorityColor]
 					}`}
 				>
-					{ctx.priorityText}
+					{task.priorityText}
 				</span>
 			</div>
 			<div className={styleContainer.taskStatus}>
 				<button
 					className={styleContainer.status}
-					onClick={() => changeStatus(ctx.id)}
+					onClick={() => setStatus(task.id)}
 				>
-					{ctx.statusText}
+					{task.statusText}
 				</button>
 			</div>
 			<div className={styleContainer.taskProgress}>
@@ -52,8 +52,8 @@ const TaskListElement = ({
 						strokeWidth="2px"
 						transform="rotate(-90 12 12)"
 						style={{
-							strokeDasharray: `${ctx.statusProgress}`,
-							strokeDashoffset: `${ctx.statusProgress}`,
+							strokeDasharray: `${task.statusProgress}`,
+							strokeDashoffset: `${task.statusProgress}`,
 						}}
 					></circle>
 				</svg>
@@ -66,7 +66,7 @@ const TaskListElement = ({
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 					className={styleContainer.ActionEdit}
-					onClick={() => requestEditModal(ctx.id)}
+					onClick={() => showEditView(task.id)}
 				>
 					<path
 						fillRule="evenodd"
@@ -82,7 +82,7 @@ const TaskListElement = ({
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 					className={styleContainer.ActionDelete}
-					onClick={()=>requestDeleteModal(ctx.id)}
+					onClick={() => showDeleteView(task.id)}
 				>
 					<path
 						fillRule="evenodd"

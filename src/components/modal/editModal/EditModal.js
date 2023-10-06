@@ -5,10 +5,10 @@ import FormModal from "../../UI/formModal/FormModal";
 import { useContext, useState } from "react";
 
 const EditModal = () => {
-	const { modalEditView, checkModalEditView, editedTask } =
+	const { editView, setEditView, editedTask } =
     useContext(TaskContext);
-	const [taskText, setTaskText] = useState('');
-	let defaultText = modalEditView.name;
+	const [ taskText, setTaskText ] = useState('');
+	let defaultText = editView.name;
 
 	const onSetTask = (event) => {
 		setTaskText(event.target.value);
@@ -17,40 +17,40 @@ const EditModal = () => {
 	const onPostEditFormTask = (event) => {
 		event.preventDefault();
 		editedTask({
-			id: modalEditView.id,
+			id: editView.id,
 			name: taskText,
-			priority: modalEditView.priority,
+			priority: editView.priority,
 		});
-		checkModalEditView((prevState) => ({
+		setEditView((prevState) => ({
 			...prevState,
-			statusModal: false,
+			statusEditView: false,
 		}));
 	};
 
 	const closeEditModal = () => {
-		checkModalEditView((prevState) => ({
+		setEditView((prevState) => ({
 			...prevState,
-			statusModal: false,
+			statusEditView: false,
 		}));
 	};
 
-	const changeStatusTask = (event) => {
+	const onCheckStatusTask = (event) => {
 		let textStatusLink = event.target.firstChild.data;
 		switch (textStatusLink) {
 		case "high":
-			checkModalEditView((prevState) => ({
+			setEditView((prevState) => ({
 				...prevState,
 				priority: 3,
 			}));
 			break;
 		case "medium":
-			checkModalEditView((prevState) => ({
+			setEditView((prevState) => ({
 				...prevState,
 				priority: 2,
 			}));
 			break;
 		case "low":
-			checkModalEditView((prevState) => ({
+			setEditView((prevState) => ({
 				...prevState,
 				priority: 1,
 			}));
@@ -64,11 +64,11 @@ const EditModal = () => {
 		<WrapperModal>
 			<FormModal
 				defaultText={defaultText}
-				priority={modalEditView.priority}
+				priority={editView.priority}
 				taskText={taskText}
 				onSetTask={onSetTask}
 				onPostFormTask={onPostEditFormTask}
-				changeStatusTask={changeStatusTask}
+				onCheckStatusTask={onCheckStatusTask}
 				closeModal={closeEditModal}
 				textButton={"Edit"}
 			/>

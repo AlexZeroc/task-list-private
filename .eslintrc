@@ -2,6 +2,19 @@
   "extends": ["react-app", "react-app/jest"],
   "rules": {
     "no-console": "warn",
+    "no-const-assign": "error",
+    "no-empty-pattern": "error",
+    "no-unused-vars": [
+      "error",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+    ],
+    "eqeqeq": ["error", "smart"],
+    "no-var": "error",
+    "prefer-exponentiation-operator": "error",
+    "array-bracket-spacing": ["error", "always"],
+    "block-spacing": "error",
+    "brace-style": "error",
+    "no-extra-parens": "error",
     "max-len": [
       "error",
       1200,

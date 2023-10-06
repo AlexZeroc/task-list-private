@@ -9,15 +9,15 @@ import AddModal from "./components/modal/addModal/AddModal";
 import { useContext } from "react";
 
 const App = () => {
-	const { modalEditView, modalDeleteView, modalAddView } =
+	const { editView, deleteView, addView } =
     useContext(TaskContext);
 	return (
 		<Wrapper>
 			<ViewTaskHeader />
 			<TaskList />
-			{modalEditView.statusModal && <EditModal />}
-			{modalDeleteView.statusModalDelete && <DeleteModal />}
-			{modalAddView.statusAddModal && <AddModal />}
+			{editView.statusEditView && <EditModal />}
+			{deleteView.statusDeleteView && <DeleteModal />}
+			{addView.statusAddView && <AddModal />}
 		</Wrapper>
 	);
 };

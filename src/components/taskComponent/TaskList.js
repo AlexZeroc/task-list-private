@@ -6,18 +6,18 @@ import TaskContext from "../../store/task-list";
 import { useContext } from "react";
 
 const TaskList = () => {
-	const { data, changeStatus, requestEditModal, requestDeleteModal } =
+	const { data, setStatus, showEditView, showDeleteView } =
     useContext(TaskContext);
 
-	let variable = data.map((ctx) => (
+	let variable = data.map((task) => 
 		<TaskListElement
-			key={ctx.id}
-			ctx={ctx}
-			changeStatus={changeStatus}
-			requestEditModal={requestEditModal}
-			requestDeleteModal={requestDeleteModal}
+			key={task.id}
+			task={task}
+			setStatus={setStatus}
+			showEditView={showEditView}
+			showDeleteView={showDeleteView}
 		/>
-	));
+	);
 
 	return <div className={styleContainer.container}>{variable}</div>;
 };

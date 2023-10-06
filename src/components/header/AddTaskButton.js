@@ -1,8 +1,8 @@
 import styles from "./AddTaskButton.module.css";
 
-const AddTaskButton = ({ requestAddModal }) => {
+const AddTaskButton = ({ showAddView }) => {
 	return (
-		<button onClick={requestAddModal} className={styles.button}>
+		<button onClick={ showAddView } className={styles.button}>
 			<span className={styles.icon}>
 				<svg
 					width="14"

@@ -5,9 +5,9 @@ import TaskContext from "../../../store/task-list";
 import { useContext, useState } from "react";
 
 const AddModal = () => {
-	const { checkModalAddView, addTask } = useContext(TaskContext);
-	const [taskText, setTaskText] = useState("");
-	const [priority, addPriority] = useState({ priority: 1 });
+	const { setAddView, addTask } = useContext(TaskContext);
+	const [ taskText, setTaskText ] = useState("");
+	const [ priority, addPriority ] = useState({ priority: 1 });
 	const onSetTask = (event) => {
 		setTaskText(event.target.value);
 	};
@@ -22,17 +22,17 @@ const AddModal = () => {
 			status: 1,
 			id: Math.random(),
 		});
-		checkModalAddView((prevState) => ({
+		setAddView((prevState) => ({
 			...prevState,
-			statusAddModal: false,
+			statusAddView: false,
 		}));
 	};
 
 	const closeAddModal = () => {
-		checkModalAddView((prevState) => ({ ...prevState, statusAddModal: false }));
+		setAddView((prevState) => ({ ...prevState, statusAddView: false }));
 	};
 
-	const changeStatusTask = (event) => {
+	const onCheckStatusTask = (event) => {
 		let textStatusLink = event.target.firstChild.data;
 		switch (textStatusLink) {
 		case "high":
@@ -66,7 +66,7 @@ const AddModal = () => {
 				taskText={taskText}
 				onSetTask={onSetTask}
 				onPostFormTask={onPostAddFormTask}
-				changeStatusTask={changeStatusTask}
+				onCheckStatusTask={onCheckStatusTask}
 				closeModal={closeAddModal}
 				textButton={"Add"}
 			/>
