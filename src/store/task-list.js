@@ -5,21 +5,16 @@ import React, { useState } from "react";
 
 const TaskContext = React.createContext();
 
-export const TaskContextProvider = ( { children } ) => {
-	const [ taskData, setTaskData ] = useState( setTaskDataStructure( DEFAULT_TASKS ) );
-	const [ editView, setEditView ] = useState( {
-		statusEditView: false,
-	} );
-	const [ addView, setAddView ] = useState( {
-		statusAddView: false,
-	} );
-	const [ deleteView, setDeleteView ] = useState( {statusDeleteView: false} );
-	const addTask = ( task ) => {
-		setTaskData( prevState => setTaskDataStructure( [ task, ...prevState ] ) );
+export const TaskContextProvider = ({ children }) => {
+	const [taskData, setTaskData] = useState(setTaskDataStructure(DEFAULT_TASKS));
+
+	const addTask = (task) => {
+		setTaskData(prevState => setTaskDataStructure([task, ...prevState]));
 	};
-	const editedTask = ( task ) => {
-		const editTaskData = taskData.map( ( elementTask ) => {
-			if( elementTask.id === task.id ) {
+    
+	const editedTask = (task) => {
+		const setIsTaskData = taskData.map((elementTask) => {
+			if(elementTask.id === task.id) {
                 
 				return{ 
 					...elementTask,
@@ -35,19 +30,43 @@ export const TaskContextProvider = ( { children } ) => {
 		  }
 		);
         		
-		setTaskData( setTaskDataStructure( editTaskData ) );
+		setTaskData(setTaskDataStructure(setIsTaskData));
 	};
 
-	const deleteTask = ( task ) => {
-		const filterTaskData = taskData.filter( ( obj ) => obj.id !== task );
+	const deleteTask = (task) => {
+		const setIsTaskData = taskData.filter((obj) => obj.id !== task);
 		
-		setTaskData( setTaskDataStructure( filterTaskData ) );
+		setTaskData(setTaskDataStructure(setIsTaskData));
 	};
 
-	const setTaskStatus = ( id ) => {
-		const changedStatusTaskElement = taskData.map( ( obj ) => {
-			if ( obj.id === id ) {
-				if ( obj.status <= 2 ) {
+
+	const setTaskNotes = (notes) => {
+		const setIsTaskData = taskData.map((elementTask) => {
+			let textNotes = notes.notes;
+			if(elementTask.id === notes.id) {
+                    
+				return{ 
+					...elementTask,
+					notes: textNotes
+				};
+    
+			} else{
+    
+				return {...elementTask};
+                    
+			}
+		}
+		);
+		setTaskData(setTaskDataStructure(setIsTaskData));
+
+	};
+
+
+
+	const setTaskStatus = (id) => {
+		const setIsStatusTask = taskData.map((obj) => {
+			if (obj.id === id) {
+				if (obj.status <= 2) {
 					return { ...obj, status: obj.status + 1};
 				} else {
 					return { ...obj, status: 1};
@@ -55,57 +74,21 @@ export const TaskContextProvider = ( { children } ) => {
 			}  else {
 				return obj; 
 			}
-		} );
-		setTaskData( setTaskDataStructure( changedStatusTaskElement ) );
+		});
+		setTaskData(setTaskDataStructure(setIsStatusTask));
 	};
 
-	const showEditView = ( id ) => {
-		const taskElement = taskData.find( ( obj ) => obj.id === id );
 
-		if( !taskElement ) {
-			return;
-		}
-
-		setEditView( {
-			statusEditView: true,
-			...taskElement,
-		} );
-		
-	};
-
-	const showAddView = () => {
-		setAddView( ( prevState ) => ( { ...prevState, statusAddView: true } ) );
-	};
-
-	const showDeleteView = ( id ) => {
-		const taskElement = taskData.find( ( obj ) => obj.id === id );
-		if( !taskElement ) {
-			return;
-		}
-		setDeleteView( {
-			statusDeleteView: true,
-			idElement: taskElement.id,
-		} );
-		
-	};
 
 	return (
 		<TaskContext.Provider
 			value={{
 				data: taskData,
 				setTaskStatus: setTaskStatus,
-				editView: editView,
-				addView: addView,
-				showEditView: showEditView,
-				setEditView: setEditView,
 				editedTask: editedTask,
-				showAddView: showAddView,
-				setAddView: setAddView,
 				addTask: addTask,
-				deleteView: deleteView,
-				showDeleteView: showDeleteView,
-				setDeleteView: setDeleteView,
 				deleteTask: deleteTask,
+				setTaskNotes: setTaskNotes,
 			}}
 		>
 			{children}

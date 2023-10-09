@@ -4,56 +4,56 @@ import FormModal from "../../UI/formModal/FormModal";
 
 import { useContext, useState } from "react";
 
-const EditModal = () => {
-	const { editView, setEditView, editedTask } =
-    useContext( TaskContext );
-	const [ taskText, setTaskText ] = useState( '' );
+const EditModal = ({editView, onSetEditView}) => {
+	const { editedTask } =
+    useContext(TaskContext);
+	const [taskText, setTaskText] = useState('');
 	let defaultText = editView.name;
 
-	const onSetTask = ( event ) => {
-		setTaskText( event.target.value );
+	const onSetTask = (event) => {
+		setTaskText(event.target.value);
 	};
 
-	const onPostEditFormTask = ( event ) => {
+	const onPostEditFormTask = (event) => {
 		event.preventDefault();
-		editedTask( {
+		editedTask({
 			id: editView.id,
 			name: taskText,
 			priority: editView.priority,
-		} );
-		setEditView( ( prevState ) => ( {
+		});
+		onSetEditView((prevState) => ({
 			...prevState,
 			statusEditView: false,
-		} ) );
+		}));
 	};
 
 	const closeEditModal = () => {
-		setEditView( ( prevState ) => ( {
+		onSetEditView((prevState) => ({
 			...prevState,
 			statusEditView: false,
-		} ) );
+		}));
 	};
 
-	const onCheckStatusTask = ( event ) => {
+	const onCheckStatusTask = (event) => {
 		let textStatusLink = event.target.firstChild.data;
-		switch ( textStatusLink ) {
+		switch (textStatusLink) {
 		case "high":
-			setEditView( ( prevState ) => ( {
+			onSetEditView((prevState) => ({
 				...prevState,
 				priority: 3,
-			} ) );
+			}));
 			break;
 		case "medium":
-			setEditView( ( prevState ) => ( {
+			onSetEditView((prevState) => ({
 				...prevState,
 				priority: 2,
-			} ) );
+			}));
 			break;
 		case "low":
-			setEditView( ( prevState ) => ( {
+			onSetEditView((prevState) => ({
 				...prevState,
 				priority: 1,
-			} ) );
+			}));
 			break;
 		default:
 			break;

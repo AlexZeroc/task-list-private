@@ -1,29 +1,35 @@
+import TaskPage from './page/TaskPage';
+import RootLayout from './page/RootLayout';
+import NotesPage from './page/NotesPage';
+import ErrorPage from './page/ErrorPage';
 
-import ViewTaskHeader from "./components/header/ViewTaskHeader";
-import TaskList from "./components/taskComponent/TaskList";
-import Wrapper from "./components/UI/wrapper/Wrapper";
-import TaskContext from "./store/task-list";
-import DeleteModal from "./components/modal/deleteModal/DeleteModal";
-import EditModal from "./components/modal/editModal/EditModal";
-import AddModal from "./components/modal/addModal/AddModal";
-
-import { useContext } from "react";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <RootLayout/>,
+		errorElement: <ErrorPage />,
 
+		children: [{
+			index: true,
+			element: <TaskPage/>
+		},
+		{
+			path: ":taskId",
+			element: <NotesPage/>
+		}]
+
+	},
+]);
 
 
 const App = () => {
-	const { editView, deleteView, addView } =
-    useContext( TaskContext );
+
 	return (
-		<Wrapper>
-			<ViewTaskHeader />
-			<TaskList />
-			{editView.statusEditView && <EditModal />}
-			{deleteView.statusDeleteView && <DeleteModal />}
-			{addView.statusAddView && <AddModal />}
-		</Wrapper>
+		<RouterProvider router={router} />	
+
 	);
 };
 

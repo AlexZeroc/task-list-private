@@ -4,54 +4,54 @@ import TaskContext from "../../../store/task-list";
 
 import { useContext, useState } from "react";
 
-const AddModal = () => {
-	const { setAddView, addTask } = useContext( TaskContext );
-	const [ taskText, setTaskText ] = useState( "" );
-	const [ priority, addPriority ] = useState( { priority: 1 } );
-	const onSetTask = ( event ) => {
-		setTaskText( event.target.value );
+const AddModal = ({onSetAddView}) => {
+	const { addTask } = useContext(TaskContext);
+	const [taskText, setTaskText] = useState("");
+	const [priority, addPriority] = useState({ priority: 1 });
+	const onSetTask = (event) => {
+		setTaskText(event.target.value);
 	};
 
 	let defaultText = "Add task text";
 
-	const onPostAddFormTask = ( event ) => {
+	const onPostAddFormTask = (event) => {
 		event.preventDefault();
-		addTask( {
+		addTask({
 			name: taskText,
 			priority: priority.priority,
 			status: 1,
 			id: Math.random(),
-		} );
-		setAddView( ( prevState ) => ( {
+		});
+		onSetAddView((prevState) => ({
 			...prevState,
 			statusAddView: false,
-		} ) );
+		}));
 	};
 
 	const closeAddModal = () => {
-		setAddView( ( prevState ) => ( { ...prevState, statusAddView: false } ) );
+		onSetAddView((prevState) => ({ ...prevState, statusAddView: false }));
 	};
 
-	const onCheckStatusTask = ( event ) => {
+	const onCheckStatusTask = (event) => {
 		let textStatusLink = event.target.firstChild.data;
-		switch ( textStatusLink ) {
+		switch (textStatusLink) {
 		case "high":
-			addPriority( ( prevState ) => ( {
+			addPriority((prevState) => ({
 				...prevState,
 				priority: 3,
-			} ) );
+			}));
 			break;
 		case "medium":
-			addPriority( ( prevState ) => ( {
+			addPriority((prevState) => ({
 				...prevState,
 				priority: 2,
-			} ) );
+			}));
 			break;
 		case "low":
-			addPriority( ( prevState ) => ( {
+			addPriority((prevState) => ({
 				...prevState,
 				priority: 1,
-			} ) );
+			}));
 			break;
 		default:
 			break;

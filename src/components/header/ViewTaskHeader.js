@@ -1,17 +1,29 @@
 import styles from "./ViewTaskHeader.module.css";
 import AddTaskButton from "./AddTaskButton";
 
-import TaskContext from "../../store/task-list";
+import AddModal from "../modal/addModal/AddModal";
 
-import { useContext } from "react";
+import { useState } from "react";
 
 const ViewTaskHeader = () => {
-	const { showAddView  } = useContext( TaskContext );
+
+	const [addView, onSetAddView] = useState({
+		statusAddView: false,
+	});
+
+	const showAddView = () => {
+		onSetAddView((prevState) => ({ ...prevState, statusAddView: true }));
+	};
+    
 	return (
-		<div className={styles.topTitle}>
-			<h1>Task List</h1>
-			<AddTaskButton  showAddView ={ showAddView } />
-		</div>
+		<>
+			<div className={styles.topTitle}>
+				<h1>Task List</h1>
+				<AddTaskButton  showAddView ={ showAddView } />
+			</div>
+			{addView.statusAddView && <AddModal onSetAddView={onSetAddView} />}
+
+		</>
 	);
 };
 

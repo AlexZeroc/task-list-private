@@ -2,12 +2,12 @@ import styles from "./TaskListElement.module.css";
 
 import { Link } from "react-router-dom";
 
-const TaskListElement = ( {
+const TaskListElement = ({
 	task,
 	setTaskStatus,
 	showEditView,
 	showDeleteView,
-} ) => {
+}) => {
 	return (
 		<div className={styles.taskCard}>
 			<div className={styles.taskName}>
@@ -16,18 +16,14 @@ const TaskListElement = ( {
 			</div>
 			<div className={styles.taskPriority}>
 				<span className={styles.priorityTitle}>Priority</span>
-				<span
-					className={`${styles.priority} ${
-						styles[task.priorityColor]
-					}`}
-				>
+				<span className={`${styles.priority} ${styles[task.priorityColor]}`}>
 					{task.priorityText}
 				</span>
 			</div>
 			<div className={styles.taskStatus}>
 				<button
 					className={styles.status}
-					onClick={() => setTaskStatus( task.id )}
+					onClick={() => setTaskStatus(task.id)}
 				>
 					{task.statusText}
 				</button>
@@ -68,7 +64,7 @@ const TaskListElement = ( {
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 					className={styles.ActionEdit}
-					onClick={() => showEditView( task.id )}
+					onClick={() => showEditView(task.id)}
 				>
 					<path
 						fillRule="evenodd"
@@ -84,7 +80,7 @@ const TaskListElement = ( {
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 					className={styles.ActionDelete}
-					onClick={() => showDeleteView( task.id )}
+					onClick={() => showDeleteView(task.id)}
 				>
 					<path
 						fillRule="evenodd"
@@ -93,36 +89,34 @@ const TaskListElement = ( {
 						fill="#F65160"
 					></path>
 				</svg>
-				<Link to={`${task.id}`}>
-					<svg xmlns="http://www.w3.org/2000/svg" 
-						width="24" 
-						height="22" 
-						viewBox="0 0 24 24" 
-						fill="none" 
-						stroke="#000000" 
-						stroke-width="2" 
-						stroke-linecap="round" 
-						stroke-linejoin="round"
+				<Link to={`:${task.id}`}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="22"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="#000000"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
 						className={styles.ActionNotes}
 					>
 						<path
-                    	fillRule="evenodd"
+							fillRule="evenodd"
 							clipRule="evenodd"
 							d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"
 							fill="#4169e1"
-
 						/>
-                        
-						<path 				
+
+						<path
 							fillRule="evenodd"
 							clipRule="evenodd"
 							d="M14 3v5h5M16 13H8M16 17H8M10 9H8"
 							fill="#4169e1"
-
 						/>
 					</svg>
 				</Link>
-
 			</div>
 		</div>
 	);

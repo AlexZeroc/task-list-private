@@ -11,11 +11,11 @@
     "eqeqeq": ["error", "smart"],
     "no-var": "error",
     "prefer-exponentiation-operator": "error",
-    "array-bracket-spacing": ["error", "always"],
-    "block-spacing": "error",
+    "array-bracket-spacing": ["error", "never"],
+    "block-spacing": ["error", "never"],
     "brace-style": "error",
     "no-extra-parens": "error",
-    "space-in-parens": ["error", "always"],
+    "space-in-parens": ["error", "never"],
     "key-spacing": [
       "error",
       {
