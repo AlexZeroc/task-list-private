@@ -29,12 +29,16 @@ export const TaskContextProvider = ({ children }) => {
 		dispatch({type: 'setStatus', task: task });
 	};
 
+	const getDataTask = () => {
+		return state; 
+	};
+
 
 
 	return (
 		<TaskContext.Provider
 			value={{
-				data: state,
+				getDataTask: getDataTask,
 				setTaskStatus: setTaskStatus,
 				editedTask: editedTask,
 				addTask: addTask,

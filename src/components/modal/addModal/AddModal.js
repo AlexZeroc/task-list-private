@@ -14,14 +14,18 @@ const AddModal = ({onSetAddView}) => {
 
 	let defaultText = "Add task text";
 
-	const onPostAddFormTask = (event) => {
+	const onPostAddFormTask = async (event) => {
 		event.preventDefault();
-		addTask({
-			name: taskText,
-			priority: priority.priority,
-			status: 1,
-			id: Math.random(),
-		});
+		try {
+			await addTask({
+				name: taskText,
+				priority: priority.priority,
+				status: 1,
+				id: Math.random(),
+			});
+		} catch(e) {
+			throw new Error(e);
+		}
 		onSetAddView((prevState) => ({
 			...prevState,
 			statusAddView: false,

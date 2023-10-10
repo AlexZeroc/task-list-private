@@ -1,31 +1,37 @@
-import styleContainer from "./TaskList.module.css";
-import TaskListElement from "./TaskListElement";
+import styleContainer from "./DetailTaskPage.module.css";
+import DetailTaskElement from "./DetailTaskElement";
 
-import EditModal from "../modal/editModal/EditModal";
-import DeleteModal from "../modal/deleteModal/DeleteModal";
+import EditModal from "../../components/modal/editModal/EditModal";
+import DeleteModal from "../../components/modal/deleteModal/DeleteModal";
 import TaskContext from "../../store/task-list";
+import Wrapper from "../../components/UI/wrapper/Wrapper";
 
 import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const TaskList = () => {
+const DetailTaskPage = () => {
 	const { getDataTask, setTaskStatus } =
     useContext(TaskContext);
 
 	const [data, getData] = useState([]);
+	let {taskId} = useParams();
 
-
+	let paramsId = parseFloat(taskId.substring(1));
+	
 	useEffect(()=> {
 		const fetchTasks = async () => {
 			const response = await getDataTask();
 			if(!response) {
 				throw new Error('Something went wrong!');
 			}
-			getData(response);
+			return response;
 		};
 
-		fetchTasks();
-	}, [getDataTask]);
-    
+		fetchTasks()
+			.then((dataTask) => dataTask.find(dataTask => dataTask.id === paramsId))
+			.then(dataTask => getData([dataTask]));
+	}, [getDataTask, paramsId]);
+
 	const [editView, onSetEditView] = useState({
 		statusEditView: false,
 	});
@@ -55,11 +61,10 @@ const TaskList = () => {
 			statusDeleteView: true,
 			idElement: taskElement.id,
 		});
-		
 	};
 
 	let variable = data.map((task) => 
-		<TaskListElement
+		<DetailTaskElement
 			key={task.id}
 			task={task}
 			setTaskStatus={setTaskStatus}
@@ -68,11 +73,13 @@ const TaskList = () => {
 		/>
 	);
 
-	return <>
-		<div className={styleContainer.container}>{variable}</div>
-		{editView.statusEditView && <EditModal editView={editView} onSetEditView={onSetEditView} />}
-		{deleteView.statusDeleteView && <DeleteModal  deleteView={deleteView} onSetDeleteView={onSetDeleteView} />}
-	</>;
+	return (
+		<Wrapper>
+			<div className={styleContainer.container}>{variable}</div>
+			{editView.statusEditView && <EditModal editView={editView} onSetEditView={onSetEditView} />}
+			{deleteView.statusDeleteView && <DeleteModal  deleteView={deleteView} onSetDeleteView={onSetDeleteView} />}
+		</Wrapper>
+	);
 };
 
-export default TaskList;
+export default DetailTaskPage;

@@ -4,16 +4,24 @@ import ModalWrapper from "../../UI/wrapper/ModalWrapper";
 import TaskContext from "../../../store/task-list";
 
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 const DeleteModal = ({onSetDeleteView, deleteView}) => {
 	const { deleteTask } =
     useContext(TaskContext);
 
-	const handleDeleteTaskElement = () => {
-		deleteTask(deleteView.idElement);
+	const navigate = useNavigate();
+
+	const handleDeleteTaskElement = async () => {
+		try {
+			await deleteTask(deleteView.idElement);
+		} catch(e) {
+			throw new Error(e);
+		}
 		onSetDeleteView((prevState) => ({
 			...prevState,
 			statusDeleteView: false,
 		}));
+		navigate("/");
 	};
 	return (
 		<ModalWrapper>

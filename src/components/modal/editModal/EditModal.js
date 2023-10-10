@@ -14,13 +14,17 @@ const EditModal = ({editView, onSetEditView}) => {
 		setTaskText(event.target.value);
 	};
 
-	const onPostEditFormTask = (event) => {
+	const onPostEditFormTask = async (event) => {
 		event.preventDefault();
-		editedTask({
-			id: editView.id,
-			name: taskText,
-			priority: editView.priority,
-		});
+		try{
+			await editedTask({
+				id: editView.id,
+				name: taskText,
+				priority: editView.priority,
+			});
+		} catch(e) {
+			throw new Error('error edit');
+		} 
 		onSetEditView((prevState) => ({
 			...prevState,
 			statusEditView: false,
