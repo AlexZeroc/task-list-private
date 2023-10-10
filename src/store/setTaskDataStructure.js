@@ -22,8 +22,8 @@ const statusToProgressMap = {
 	3: 0
 };
 
-const setTaskDataStructure = ( arr ) => {
-	const dataTask = arr.map( ( obj ) => {
+const setTaskDataStructure = (arr) => {
+	const dataTask = arr.map((obj) => {
 		return {
 			...obj,
 			priorityText: priorityToLabelText[obj.priority],
@@ -31,7 +31,7 @@ const setTaskDataStructure = ( arr ) => {
 			statusText: statusToTextMap[obj.status],
 			statusProgress: statusToProgressMap[obj.status],
 		};
-	} );
+	});
 
 	return dataTask;
 };
