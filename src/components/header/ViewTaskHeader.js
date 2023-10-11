@@ -12,7 +12,7 @@ const ViewTaskHeader = () => {
 	});
 
 	const showAddView = () => {
-		onSetAddView((prevState) => ({ ...prevState, statusAddView: true }));
+		onSetAddView({ statusAddView: true });
 	};
     
 	return (
@@ -22,7 +22,6 @@ const ViewTaskHeader = () => {
 				<AddTaskButton  showAddView ={ showAddView } />
 			</div>
 			{addView.statusAddView && <AddModal onSetAddView={onSetAddView} />}
-
 		</>
 	);
 };
