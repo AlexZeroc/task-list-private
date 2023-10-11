@@ -1,5 +1,5 @@
 import styleContainer from "./DetailTaskPage.module.css";
-import DetailTaskElement from "./DetailTaskElement";
+import DetailTask  from "./DetailTask";
 
 import EditModal from "../../components/modal/editModal/EditModal";
 import DeleteModal from "../../components/modal/deleteModal/DeleteModal";
@@ -10,17 +10,16 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const DetailTaskPage = () => {
-	const { getDataTask, setTaskStatus } =
+	
+	const { dataTask, setTaskStatus } =
     useContext(TaskContext);
 
-	const [data, getData] = useState([]);
+	const [data, setData] = useState([]);
 	let {taskId} = useParams();
-
-	let paramsId = parseFloat(taskId.substring(1));
 	
 	useEffect(()=> {
 		const fetchTasks = async () => {
-			const response = await getDataTask();
+			const response = await dataTask();
 			if(!response) {
 				throw new Error('Something went wrong!');
 			}
@@ -28,9 +27,9 @@ const DetailTaskPage = () => {
 		};
 
 		fetchTasks()
-			.then((dataTask) => dataTask.find(dataTask => dataTask.id === paramsId))
-			.then(dataTask => getData([dataTask]));
-	}, [getDataTask, paramsId]);
+			.then((dataTask) => dataTask.find(dataTask => dataTask.id === parseInt(taskId)))
+			.then(dataTask => setData([dataTask]));
+	}, [dataTask, taskId]);
 
 	const [editView, onSetEditView] = useState({
 		statusEditView: false,
@@ -64,7 +63,7 @@ const DetailTaskPage = () => {
 	};
 
 	let variable = data.map((task) => 
-		<DetailTaskElement
+		<DetailTask 
 			key={task.id}
 			task={task}
 			setTaskStatus={setTaskStatus}

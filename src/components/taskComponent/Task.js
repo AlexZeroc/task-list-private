@@ -1,8 +1,8 @@
-import styles from "./TaskListElement.module.css";
+import styles from "./Task.module.css";
 
 import { Link } from "react-router-dom";
 
-const TaskListElement = ({
+const Task = ({
 	task,
 	setTaskStatus,
 	showEditView,
@@ -89,7 +89,7 @@ const TaskListElement = ({
 						fill="#F65160"
 					></path>
 				</svg>
-				<Link to={`:${task.id}`}>
+				<Link to={`${task.id}`}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
@@ -122,4 +122,4 @@ const TaskListElement = ({
 	);
 };
 
-export default TaskListElement;
+export default Task;

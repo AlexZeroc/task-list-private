@@ -1,10 +1,10 @@
-import styles from "./DetailTaskElement.module.css";
+import styles from "./DetailTask.module.css";
 
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 
-const DetailTaskElement = ({
+const DetailTask = ({
 	task,
 	setTaskStatus,
 	showEditView,
@@ -100,4 +100,4 @@ const DetailTaskElement = ({
 	);
 };
 
-export default DetailTaskElement;
+export default DetailTask;

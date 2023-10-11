@@ -1,5 +1,5 @@
-import styleContainer from "./TaskList.module.css";
-import TaskListElement from "./TaskListElement";
+import styles from "./TaskList.module.css";
+import Task from "./Task";
 
 import EditModal from "../modal/editModal/EditModal";
 import DeleteModal from "../modal/deleteModal/DeleteModal";
@@ -8,23 +8,23 @@ import TaskContext from "../../store/task-list";
 import { useContext, useEffect, useState } from "react";
 
 const TaskList = () => {
-	const { getDataTask, setTaskStatus } =
+	const { dataTask, setTaskStatus } =
     useContext(TaskContext);
 
-	const [data, getData] = useState([]);
+	const [data, setData] = useState([]);
 
 
 	useEffect(()=> {
 		const fetchTasks = async () => {
-			const response = await getDataTask();
+			const response = await dataTask();
 			if(!response) {
 				throw new Error('Something went wrong!');
 			}
-			getData(response);
+			setData(response);
 		};
 
 		fetchTasks();
-	}, [getDataTask]);
+	}, [dataTask]);
     
 	const [editView, onSetEditView] = useState({
 		statusEditView: false,
@@ -59,7 +59,7 @@ const TaskList = () => {
 	};
 
 	let variable = data.map((task) => 
-		<TaskListElement
+		<Task
 			key={task.id}
 			task={task}
 			setTaskStatus={setTaskStatus}
@@ -69,7 +69,7 @@ const TaskList = () => {
 	);
 
 	return <>
-		<div className={styleContainer.container}>{variable}</div>
+		<div className={styles.container}>{variable}</div>
 		{editView.statusEditView && <EditModal editView={editView} onSetEditView={onSetEditView} />}
 		{deleteView.statusDeleteView && <DeleteModal  deleteView={deleteView} onSetDeleteView={onSetDeleteView} />}
 	</>;
