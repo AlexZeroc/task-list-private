@@ -3,29 +3,16 @@ import Task from "./Task";
 
 import EditModal from "../modal/editModal/EditModal";
 import DeleteModal from "../modal/deleteModal/DeleteModal";
-import TaskContext from "../../store/task-list";
+import useFetch from "../../hooks/useFetch";
 
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 
 const TaskList = () => {
-	const { dataTask, setTaskStatus } =
-    useContext(TaskContext);
-
-	const [data, setData] = useState([]);
 
 
-	useEffect(()=> {
-		const fetchTasks = async () => {
-			const response = await dataTask();
-			if(!response) {
-				throw new Error('Something went wrong!');
-			}
-			setData(response);
-		};
 
-		fetchTasks();
-	}, [dataTask]);
-    
+	const {data, fetchReducer} = useFetch();
+
 	const [editView, onSetEditView] = useState({
 		statusEditView: false,
 	});
@@ -58,18 +45,18 @@ const TaskList = () => {
 		
 	};
 
-	let variable = data.map((task) => 
+	let taskListContainer = data.map((task) => 
 		<Task
 			key={task.id}
 			task={task}
-			setTaskStatus={setTaskStatus}
+			onFetchReducer={fetchReducer}
 			showEditView={showEditView}
 			showDeleteView={showDeleteView}
 		/>
 	);
 
 	return <>
-		<div className={styles.container}>{variable}</div>
+		<div className={styles.container}>{taskListContainer}</div>
 		{editView.statusEditView && <EditModal editView={editView} onSetEditView={onSetEditView} />}
 		{deleteView.statusDeleteView && <DeleteModal  deleteView={deleteView} onSetDeleteView={onSetDeleteView} />}
 	</>;

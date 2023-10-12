@@ -8,6 +8,7 @@ const reducer = (state, {type, task}) => {
 	{
 		return setTaskDataStructure([task, ...state]);
 	}
+
     
 	    case 'edit':
 	{
@@ -30,7 +31,7 @@ const reducer = (state, {type, task}) => {
                     
 		return setTaskDataStructure(setIsTaskData);
 	} 
-
+            
 	    case 'delete': 
 	{
 		const setIsTaskData = state.filter((obj) => obj.id !== task);
@@ -54,9 +55,11 @@ const reducer = (state, {type, task}) => {
 		return setTaskDataStructure(setIsStatusTask);
 	}
 
+
 	default: {
 		throw new Error();
 	}
+
 	}
 
 };

@@ -1,35 +1,19 @@
-import styleContainer from "./DetailTaskPage.module.css";
+import styles from "./DetailTaskPage.module.css";
 import DetailTask  from "./DetailTask";
 
 import EditModal from "../../components/modal/editModal/EditModal";
 import DeleteModal from "../../components/modal/deleteModal/DeleteModal";
-import TaskContext from "../../store/task-list";
+import useFetch from "../../hooks/useFetch";
 import Wrapper from "../../components/UI/wrapper/Wrapper";
 
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const DetailTaskPage = () => {
-	
-	const { dataTask, setTaskStatus } =
-    useContext(TaskContext);
 
-	const [data, setData] = useState([]);
+
 	let {taskId} = useParams();
-	
-	useEffect(()=> {
-		const fetchTasks = async () => {
-			const response = await dataTask();
-			if(!response) {
-				throw new Error('Something went wrong!');
-			}
-			return response;
-		};
-
-		fetchTasks()
-			.then((dataTask) => dataTask.find(dataTask => dataTask.id === parseInt(taskId)))
-			.then(dataTask => setData([dataTask]));
-	}, [dataTask, taskId]);
+	const {dataDetail, fetchReducer} = useFetch(+taskId);
 
 	const [editView, onSetEditView] = useState({
 		statusEditView: false,
@@ -37,8 +21,9 @@ const DetailTaskPage = () => {
 
 	const [deleteView, onSetDeleteView] = useState({statusDeleteView: false});
 
+
 	const showEditView = (id) => {
-		const taskElement =  data.find((obj) => obj.id === id);
+		const taskElement =  dataDetail.find((obj) => obj.id === id);
 
 		if(!taskElement) {
 			return;
@@ -52,7 +37,7 @@ const DetailTaskPage = () => {
 	};
 
 	const showDeleteView = (id) => {
-		const taskElement =  data.find((obj) => obj.id === id);
+		const taskElement = dataDetail.find((obj) => obj.id === id);
 		if(!taskElement) {
 			return;
 		}
@@ -60,25 +45,24 @@ const DetailTaskPage = () => {
 			statusDeleteView: true,
 			idElement: taskElement.id,
 		});
+		
 	};
-
-	let variable = data.map((task) => 
-		<DetailTask 
-			key={task.id}
+    
+	let taskContainer = dataDetail.map((task) => 
+		<DetailTask
+			key={+taskId}
 			task={task}
-			setTaskStatus={setTaskStatus}
+			onFetchReducer={fetchReducer}
 			showEditView={showEditView}
 			showDeleteView={showDeleteView}
 		/>
 	);
 
-	return (
-		<Wrapper>
-			<div className={styleContainer.container}>{variable}</div>
-			{editView.statusEditView && <EditModal editView={editView} onSetEditView={onSetEditView} />}
-			{deleteView.statusDeleteView && <DeleteModal  deleteView={deleteView} onSetDeleteView={onSetDeleteView} />}
-		</Wrapper>
-	);
+	return <Wrapper>
+		<div className={styles.container}>{taskContainer}</div>
+		{editView.statusEditView && <EditModal editView={editView} onSetEditView={onSetEditView} />}
+		{deleteView.statusDeleteView && <DeleteModal  deleteView={deleteView} onSetDeleteView={onSetDeleteView} />}
+	</Wrapper>;
 };
 
 export default DetailTaskPage;

@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 
 const DetailTask = ({
 	task,
-	setTaskStatus,
+	onFetchReducer,
 	showEditView,
 	showDeleteView,
 }) => {
@@ -26,7 +26,7 @@ const DetailTask = ({
 			<div className={styles.taskStatus}>
 				<button
 					className={styles.status}
-					onClick={() => setTaskStatus(task.id)}
+					onClick={() => onFetchReducer({task: task.id, method: "SETSTATUS"})}
 				>
 					{task.statusText}
 				</button>

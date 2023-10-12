@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Task = ({
 	task,
-	setTaskStatus,
+	onFetchReducer,
 	showEditView,
 	showDeleteView,
 }) => {
@@ -23,7 +23,7 @@ const Task = ({
 			<div className={styles.taskStatus}>
 				<button
 					className={styles.status}
-					onClick={() => setTaskStatus(task.id)}
+					onClick={() => onFetchReducer({task: task.id, method: "SETSTATUS"})}
 				>
 					{task.statusText}
 				</button>

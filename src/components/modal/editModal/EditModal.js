@@ -1,12 +1,11 @@
 import WrapperModal from "../../UI/wrapper/ModalWrapper";
-import TaskContext from "../../../store/task-list";
 import FormModal from "../../UI/formModal/FormModal";
+import useFetch from "../../../hooks/useFetch";
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 const EditModal = ({editView, onSetEditView}) => {
-	const { editedTask } =
-    useContext(TaskContext);
+	const {fetchReducer} = useFetch();
 	const [taskText, setTaskText] = useState('');
 	let defaultText = editView.name;
 
@@ -14,22 +13,25 @@ const EditModal = ({editView, onSetEditView}) => {
 		setTaskText(event.target.value);
 	};
 
-	const onPostEditFormTask = async (event) => {
+	const onPostEditFormTask = (event) => {
 		event.preventDefault();
-		try{
-			await editedTask({
-				id: editView.id,
-				name: taskText,
-				priority: editView.priority,
-			});
-		} catch(e) {
-			throw new Error('error edit');
-		} 
+		fetchReducer(
+			{
+
+				task: {
+					id: editView.id,
+					name: taskText,
+					priority: editView.priority,
+				},
+				method: 'EDIT'
+			}
+		);
 		onSetEditView((prevState) => ({
 			...prevState,
 			statusEditView: false,
 		}));
 	};
+	
 
 	const closeEditModal = () => {
 		onSetEditView((prevState) => ({

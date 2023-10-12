@@ -1,22 +1,18 @@
 import styles from "./DeleteModal.module.css";
 
 import ModalWrapper from "../../UI/wrapper/ModalWrapper";
-import TaskContext from "../../../store/task-list";
+import useFetch from "../../../hooks/useFetch";
 
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 const DeleteModal = ({onSetDeleteView, deleteView}) => {
-	const { deleteTask } =
-    useContext(TaskContext);
+
 
 	const navigate = useNavigate();
+	const {fetchReducer} = useFetch();
+	const handleDeleteTaskElement = () => {
+        
+		fetchReducer({task: deleteView.idElement, method: 'DELETE' });
 
-	const handleDeleteTaskElement = async () => {
-		try {
-			await deleteTask(deleteView.idElement);
-		} catch(e) {
-			throw new Error(e);
-		}
 		onSetDeleteView((prevState) => ({
 			...prevState,
 			statusDeleteView: false,

@@ -1,31 +1,32 @@
 import ModalWrapper from "../../UI/wrapper/ModalWrapper";
 import FormModal from "../../UI/formModal/FormModal";
-import TaskContext from "../../../store/task-list";
+import useFetch from "../../../hooks/useFetch";
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 const AddModal = ({onSetAddView}) => {
-	const { addTask } = useContext(TaskContext);
 	const [taskText, setTaskText] = useState("");
 	const [priority, addPriority] = useState({ priority: 1 });
+	const {fetchReducer} = useFetch();
 	const onSetTask = (event) => {
 		setTaskText(event.target.value);
 	};
 
 	let defaultText = "Add task text";
 
-	const onPostAddFormTask = async (event) => {
+	const onPostAddFormTask = (event) => {
 		event.preventDefault();
-		try {
-			await addTask({
-				name: taskText,
+
+		fetchReducer ({
+			task: {
+				taskText: taskText,
 				priority: priority.priority,
-				status: 1,
-				id: Math.random(),
-			});
-		} catch(e) {
-			throw new Error(e);
+			     },
+			method: 'ADD'
+                
 		}
+		);
+	
 		onSetAddView((prevState) => ({
 			...prevState,
 			statusAddView: false,

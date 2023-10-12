@@ -14,7 +14,7 @@ const FormModal = ({
 		<form onSubmit={onPostFormTask}>
 			<div className={styles.addEditModal}>
 				<div className={styles.flxBetween}>
-					<span className={styles.modalTitle}> Edit Task </span>
+					<span className={styles.modalTitle}> Your task </span>
 					<svg
 						width="17"
 						height="16"

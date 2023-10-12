@@ -32,12 +32,17 @@ export const TaskContextProvider = ({ children }) => {
 	const dataTask = () => {
 		return state; 
 	};
-
-
+    
+	const dataDetailTask = (id) => {
+		const isTask = state.find(task => task.id === id); 
+		
+		return [{...isTask}];
+	};
 
 	return (
 		<TaskContext.Provider
 			value={{
+				dataDetailTask: dataDetailTask,
 				dataTask: dataTask,
 				setTaskStatus: setTaskStatus,
 				editedTask: editedTask,
