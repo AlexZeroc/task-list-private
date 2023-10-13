@@ -1,12 +1,12 @@
-import styles from "./Task.module.css";
+import styles from './Task.module.css';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Task = ({
 	task,
 	onFetchReducer,
 	showEditView,
-	showDeleteView,
+	showDeleteView
 }) => {
 	return (
 		<div className={styles.taskCard}>
@@ -23,7 +23,7 @@ const Task = ({
 			<div className={styles.taskStatus}>
 				<button
 					className={styles.status}
-					onClick={() => onFetchReducer({task: task.id, method: "SETSTATUS"})}
+					onClick={() => onFetchReducer({ task: task.id, method: 'SETSTATUS' })}
 				>
 					{task.statusText}
 				</button>
@@ -50,8 +50,8 @@ const Task = ({
 						strokeWidth="2px"
 						transform="rotate(-90 12 12)"
 						style={{
-							strokeDasharray: `${task.statusProgress}`,
-							strokeDashoffset: `${task.statusProgress}`,
+						  strokeDasharray: `${task.statusProgress}`,
+						  strokeDashoffset: `${task.statusProgress}`
 						}}
 					></circle>
 				</svg>

@@ -1,14 +1,13 @@
-import styles from "./DetailTask.module.css";
+import styles from './DetailTask.module.css';
 
-import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
-
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const DetailTask = ({
 	task,
 	onFetchReducer,
 	showEditView,
-	showDeleteView,
+	showDeleteView
 }) => {
 	const navigate = useNavigate();
 	return (
@@ -26,7 +25,7 @@ const DetailTask = ({
 			<div className={styles.taskStatus}>
 				<button
 					className={styles.status}
-					onClick={() => onFetchReducer({task: task.id, method: "SETSTATUS"})}
+					onClick={() => onFetchReducer({ task: task.id, method: 'SETSTATUS' })}
 				>
 					{task.statusText}
 				</button>
@@ -53,8 +52,8 @@ const DetailTask = ({
 						strokeWidth="2px"
 						transform="rotate(-90 12 12)"
 						style={{
-							strokeDasharray: `${task.statusProgress}`,
-							strokeDashoffset: `${task.statusProgress}`,
+						  strokeDasharray: `${task.statusProgress}`,
+						  strokeDashoffset: `${task.statusProgress}`
 						}}
 					></circle>
 				</svg>
@@ -93,7 +92,7 @@ const DetailTask = ({
 					></path>
 				</svg>
 			</div>
-			<Button onClick={() => navigate("/")} variant="outline-primary">
+			<Button onClick={() => navigate('/')} variant="outline-primary">
             Back
 			</Button>
 		</div>

@@ -1,4 +1,4 @@
-import styles from "./ModalWrapper.module.css";
+import styles from './ModalWrapper.module.css';
 
 const ModalWrapper = ({ children }) => {
 	return (

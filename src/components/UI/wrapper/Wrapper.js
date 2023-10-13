@@ -1,4 +1,4 @@
-import styles from "./Wrapper.module.css";
+import styles from './Wrapper.module.css';
 
 const Wrapper = ({ children }) => {
 	return (

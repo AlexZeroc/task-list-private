@@ -1,35 +1,35 @@
-import ModalWrapper from "../../UI/wrapper/ModalWrapper";
-import FormModal from "../../UI/formModal/FormModal";
-import useFetch from "../../../hooks/useFetch";
+import ModalWrapper from '../../UI/wrapper/ModalWrapper';
+import FormModal from '../../UI/formModal/FormModal';
+import useFetch from '../../../hooks/useFetch';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-const AddModal = ({onSetAddView}) => {
-	const [taskText, setTaskText] = useState("");
+const AddModal = ({ onSetAddView }) => {
+	const [taskText, setTaskText] = useState('');
 	const [priority, addPriority] = useState({ priority: 1 });
-	const {fetchReducer} = useFetch();
+	const { fetchReducer } = useFetch();
 	const onSetTask = (event) => {
 		setTaskText(event.target.value);
 	};
 
-	let defaultText = "Add task text";
+	const defaultText = 'Add task text';
 
 	const onPostAddFormTask = (event) => {
 		event.preventDefault();
 
-		fetchReducer ({
+		fetchReducer({
 			task: {
-				taskText: taskText,
-				priority: priority.priority,
+				taskText,
+				priority: priority.priority
 			     },
 			method: 'ADD'
-                
+
 		}
 		);
-	
+
 		onSetAddView((prevState) => ({
 			...prevState,
-			statusAddView: false,
+			statusAddView: false
 		}));
 	};
 
@@ -38,28 +38,28 @@ const AddModal = ({onSetAddView}) => {
 	};
 
 	const onCheckStatusTask = (event) => {
-		let textStatusLink = event.target.firstChild.data;
+		const textStatusLink = event.target.firstChild.data;
 		switch (textStatusLink) {
-		case "high":
-			addPriority((prevState) => ({
-				...prevState,
-				priority: 3,
-			}));
-			break;
-		case "medium":
-			addPriority((prevState) => ({
-				...prevState,
-				priority: 2,
-			}));
-			break;
-		case "low":
-			addPriority((prevState) => ({
-				...prevState,
-				priority: 1,
-			}));
-			break;
-		default:
-			break;
+			case 'high':
+				addPriority((prevState) => ({
+					...prevState,
+					priority: 3
+				}));
+				break;
+			case 'medium':
+				addPriority((prevState) => ({
+					...prevState,
+					priority: 2
+				}));
+				break;
+			case 'low':
+				addPriority((prevState) => ({
+					...prevState,
+					priority: 1
+				}));
+				break;
+			default:
+				break;
 		}
 	};
 
@@ -73,7 +73,7 @@ const AddModal = ({onSetAddView}) => {
 				onPostFormTask={onPostAddFormTask}
 				onCheckStatusTask={onCheckStatusTask}
 				closeModal={closeAddModal}
-				textButton={"Add"}
+				textButton={'Add'}
 			/>
 		</ModalWrapper>
 	);

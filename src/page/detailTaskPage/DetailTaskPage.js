@@ -1,54 +1,49 @@
-import styles from "./DetailTaskPage.module.css";
-import DetailTask  from "./DetailTask";
+import styles from './DetailTaskPage.module.css';
+import DetailTask from './DetailTask';
 
-import EditModal from "../../components/modal/editModal/EditModal";
-import DeleteModal from "../../components/modal/deleteModal/DeleteModal";
-import useFetch from "../../hooks/useFetch";
-import Wrapper from "../../components/UI/wrapper/Wrapper";
+import EditModal from '../../components/modal/editModal/EditModal';
+import DeleteModal from '../../components/modal/deleteModal/DeleteModal';
+import useFetch from '../../hooks/useFetch';
+import Wrapper from '../../components/UI/wrapper/Wrapper';
 
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const DetailTaskPage = () => {
-
-
-	let {taskId} = useParams();
-	const {dataDetail, fetchReducer} = useFetch(+taskId);
+	const { taskId } = useParams();
+	const { dataDetail, fetchReducer } = useFetch(+taskId);
 
 	const [editView, onSetEditView] = useState({
-		statusEditView: false,
+		statusEditView: false
 	});
 
-	const [deleteView, onSetDeleteView] = useState({statusDeleteView: false});
-
+	const [deleteView, onSetDeleteView] = useState({ statusDeleteView: false });
 
 	const showEditView = (id) => {
-		const taskElement =  dataDetail.find((obj) => obj.id === id);
+		const taskElement = dataDetail.find((obj) => obj.id === id);
 
-		if(!taskElement) {
+		if (!taskElement) {
 			return;
 		}
 
 		onSetEditView({
 			statusEditView: true,
-			...taskElement,
+			...taskElement
 		});
-		
 	};
 
 	const showDeleteView = (id) => {
 		const taskElement = dataDetail.find((obj) => obj.id === id);
-		if(!taskElement) {
+		if (!taskElement) {
 			return;
 		}
 		onSetDeleteView({
 			statusDeleteView: true,
-			idElement: taskElement.id,
+			idElement: taskElement.id
 		});
-		
 	};
-    
-	let taskContainer = dataDetail.map((task) => 
+
+	const taskContainer = dataDetail.map((task) =>
 		<DetailTask
 			key={+taskId}
 			task={task}
@@ -61,7 +56,7 @@ const DetailTaskPage = () => {
 	return <Wrapper>
 		<div className={styles.container}>{taskContainer}</div>
 		{editView.statusEditView && <EditModal editView={editView} onSetEditView={onSetEditView} />}
-		{deleteView.statusDeleteView && <DeleteModal  deleteView={deleteView} onSetDeleteView={onSetDeleteView} />}
+		{deleteView.statusDeleteView && <DeleteModal deleteView={deleteView} onSetDeleteView={onSetDeleteView} />}
 	</Wrapper>;
 };
 

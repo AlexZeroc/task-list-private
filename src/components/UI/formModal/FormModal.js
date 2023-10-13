@@ -1,4 +1,4 @@
-import styles from "./FormModal.module.css";
+import styles from './FormModal.module.css';
 
 const FormModal = ({
 	defaultText,
@@ -8,7 +8,7 @@ const FormModal = ({
 	onPostFormTask,
 	onCheckStatusTask,
 	closeModal,
-	textButton,
+	textButton
 }) => {
 	return (
 		<form onSubmit={onPostFormTask}>

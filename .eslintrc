@@ -1,9 +1,30 @@
 {
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
   "extends": ["react-app", "react-app/jest"],
+  "plugins": ["react"],
   "rules": {
+    "no-mixed-spaces-and-tabs": 0,
+
+    "no-tabs": 0,
+    "react/prop-types": 0,
     "no-console": "warn",
     "no-const-assign": "error",
     "no-empty-pattern": "error",
+    "arrow-parens": ["error", "always"],
+    "max-len": ["error", { "code": 1400, "ignoreUrls": true }],
+    "indent": [0, "tab", { "SwitchCase": 1, "VariableDeclarator": 0 }],
+    "react/jsx-indent-props": [0, "tab"],
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+
     "no-unused-vars": [
       "error",
       { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
@@ -24,16 +45,8 @@
         "mode": "strict"
       }
     ],
-    "max-len": [
-      "error",
-      1200,
-      {
-        "ignoreUrls": true
-      }
-    ],
     "semi": ["warn", "always"],
     "eol-last": "error",
-    "indent": [2, "tab"],
     "import/order": [
       "error",
       {
