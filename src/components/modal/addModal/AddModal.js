@@ -1,31 +1,29 @@
 import ModalWrapper from '../../UI/wrapper/ModalWrapper';
 import FormModal from '../../UI/formModal/FormModal';
-import useFetch from '../../../hooks/useFetch';
+import {useFetchAddTask, useFetchTaskList} from '../../../hooks/hooksService';
 
 import { useState } from 'react';
 
 const AddModal = ({ onSetAddView }) => {
-	const [taskText, setTaskText] = useState('');
-	const [priority, addPriority] = useState({ priority: 1 });
-	const { fetchReducer } = useFetch();
-	const onSetTask = (event) => {
-		setTaskText(event.target.value);
+	const [taskText, handleSetTaskText] = useState('');
+	const [priority, hanldeAddPriority] = useState({ priority: 1 });
+    const data = useFetchTaskList();
+	const handleAddTask = useFetchAddTask();
+	const handleSetTask = (event) => {
+		handleSetTaskText(event.target.value);
 	};
-
 	const defaultText = 'Add task text';
 
-	const onPostAddFormTask = (event) => {
+	const handlePostAddFormTask = (event) => {
 		event.preventDefault();
-
-		fetchReducer({
-			task: {
-				taskText,
-				priority: priority.priority
-			     },
-			method: 'ADD'
-
-		}
-		);
+		handleAddTask(
+                {
+                name: taskText,
+                priority: priority.priority,
+                status: 1,
+                id: data.length + new Date().getTime()
+                }
+			);
 
 		onSetAddView((prevState) => ({
 			...prevState,
@@ -33,27 +31,27 @@ const AddModal = ({ onSetAddView }) => {
 		}));
 	};
 
-	const closeAddModal = () => {
+	const handleCloseAddModal = () => {
 		onSetAddView((prevState) => ({ ...prevState, statusAddView: false }));
 	};
 
-	const onCheckStatusTask = (event) => {
+	const handleCheckStatusTask = (event) => {
 		const textStatusLink = event.target.firstChild.data;
 		switch (textStatusLink) {
 			case 'high':
-				addPriority((prevState) => ({
+                hanldeAddPriority((prevState) => ({
 					...prevState,
 					priority: 3
 				}));
 				break;
 			case 'medium':
-				addPriority((prevState) => ({
+                hanldeAddPriority((prevState) => ({
 					...prevState,
 					priority: 2
 				}));
 				break;
 			case 'low':
-				addPriority((prevState) => ({
+                hanldeAddPriority((prevState) => ({
 					...prevState,
 					priority: 1
 				}));
@@ -69,10 +67,10 @@ const AddModal = ({ onSetAddView }) => {
 				defaultText = {defaultText}
 				priority={priority.priority}
 				taskText={taskText}
-				onSetTask={onSetTask}
-				onPostFormTask={onPostAddFormTask}
-				onCheckStatusTask={onCheckStatusTask}
-				closeModal={closeAddModal}
+				onSetTask={handleSetTask}
+				onPostFormTask={handlePostAddFormTask}
+				onCheckStatusTask={handleCheckStatusTask}
+				onCloseModal={handleCloseAddModal}
 				textButton={'Add'}
 			/>
 		</ModalWrapper>

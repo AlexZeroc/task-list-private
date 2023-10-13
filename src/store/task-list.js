@@ -8,48 +8,44 @@ const initialState = setTaskDataStructure(DEFAULT_TASKS);
 
 const TaskContext = React.createContext();
 export const TaskContextProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(reducer, initialState);
+const [state, dispatch] = useReducer(reducer, initialState);
 
-	const addTask = (task) => {
-		dispatch({ type: 'add', task });
-	};
+const addTask = (task) => {
+    dispatch({ type: 'add', task });
+};
 
-	const editedTask = (task) => {
-		dispatch({ type: 'edit', task });
-	};
+const editedTask = (task) => {
+    dispatch({ type: 'edit', task });
+};
 
-	const deleteTask = (task) => {
-		dispatch({ type: 'delete', task });
-	};
+const deleteTask = (task) => {
+    dispatch({ type: 'delete', task });
+};
 
-	const setTaskStatus = (task) => {
-		dispatch({ type: 'setStatus', task });
-	};
+const setTaskStatus = (task) => {
+    dispatch({ type: 'setStatus', task });
+};
 
-	const dataTask = () => {
-		return state;
-	};
+const setDataTask = (id) => {
+    const isTask = state.find((task) => task.id === id);
+    const setTask  = [{ ...isTask }];
+    return setTask;
+};
 
-	const dataDetailTask = (id) => {
-		const isTask = state.find((task) => task.id === id);
-
-		return [{ ...isTask }];
-	};
-
-	return (
+return (
 		<TaskContext.Provider
 			value={{
-			  dataDetailTask,
-			  dataTask,
-			  setTaskStatus,
-			  editedTask,
-			  addTask,
-			  deleteTask
+            setDataTask: setDataTask,
+			dataTask: state, 
+			setTaskStatus: setTaskStatus,
+			editedTask: editedTask,
+			addTask: addTask,
+			deleteTask: deleteTask, 
 			}}
 		>
 			{children}
 		</TaskContext.Provider>
-	);
+);
 };
 
 export default TaskContext;

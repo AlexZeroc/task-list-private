@@ -1,13 +1,13 @@
-import styles from './DetailTask.module.css';
+import styles from './DetailTaskForm.module.css';
 
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
-const DetailTask = ({
+const DetailTaskForm = ({
 	task,
-	onFetchReducer,
-	showEditView,
-	showDeleteView
+	onCheckStatus,
+	onShowEditView,
+	onShowDeleteView
 }) => {
 	const navigate = useNavigate();
 	return (
@@ -25,7 +25,7 @@ const DetailTask = ({
 			<div className={styles.taskStatus}>
 				<button
 					className={styles.status}
-					onClick={() => onFetchReducer({ task: task.id, method: 'SETSTATUS' })}
+					onClick={() => onCheckStatus(task.id)}
 				>
 					{task.statusText}
 				</button>
@@ -66,7 +66,7 @@ const DetailTask = ({
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 					className={styles.ActionEdit}
-					onClick={() => showEditView(task.id)}
+					onClick={() => onShowEditView(task.id)}
 				>
 					<path
 						fillRule="evenodd"
@@ -82,7 +82,7 @@ const DetailTask = ({
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 					className={styles.ActionDelete}
-					onClick={() => showDeleteView(task.id)}
+					onClick={() => onShowDeleteView(task.id)}
 				>
 					<path
 						fillRule="evenodd"
@@ -99,4 +99,4 @@ const DetailTask = ({
 	);
 };
 
-export default DetailTask;
+export default DetailTaskForm;

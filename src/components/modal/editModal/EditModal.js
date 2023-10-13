@@ -1,45 +1,40 @@
 import WrapperModal from '../../UI/wrapper/ModalWrapper';
 import FormModal from '../../UI/formModal/FormModal';
-import useFetch from '../../../hooks/useFetch';
+import { useFetchPostTaskList } from '../../../hooks/hooksService';
 
 import { useState } from 'react';
 
 const EditModal = ({ editView, onSetEditView }) => {
-	const { fetchReducer } = useFetch();
-	const [taskText, setTaskText] = useState('');
+	const [taskText, handleSetTaskText] = useState('');
+    const hanldeEditTask = useFetchPostTaskList();
 	const defaultText = editView.name;
-
-	const onSetTask = (event) => {
-		setTaskText(event.target.value);
+	const handleSetTask = (event) => {
+		handleSetTaskText(event.target.value);
 	};
 
-	const onPostEditFormTask = (event) => {
+	const handlePostEditFormTask = (event) => {
 		event.preventDefault();
-		fetchReducer(
-			{
-
-				task: {
+        hanldeEditTask(
+				{
 					id: editView.id,
 					name: taskText,
 					priority: editView.priority
-				},
-				method: 'EDIT'
-			}
-		);
+				}
+		    );
 		onSetEditView((prevState) => ({
 			...prevState,
 			statusEditView: false
 		}));
 	};
 
-	const closeEditModal = () => {
+	const handleCloseEditModal = () => {
 		onSetEditView((prevState) => ({
 			...prevState,
 			statusEditView: false
 		}));
 	};
 
-	const onCheckStatusTask = (event) => {
+	const handleCheckStatusTask = (event) => {
 		const textStatusLink = event.target.firstChild.data;
 		switch (textStatusLink) {
 			case 'high':
@@ -71,10 +66,10 @@ const EditModal = ({ editView, onSetEditView }) => {
 				defaultText={defaultText}
 				priority={editView.priority}
 				taskText={taskText}
-				onSetTask={onSetTask}
-				onPostFormTask={onPostEditFormTask}
-				onCheckStatusTask={onCheckStatusTask}
-				closeModal={closeEditModal}
+				onSetTask={handleSetTask}
+				onPostFormTask={handlePostEditFormTask}
+				onCheckStatusTask={handleCheckStatusTask}
+				onCloseModal={handleCloseEditModal}
 				textButton={'Edit'}
 			/>
 		</WrapperModal>

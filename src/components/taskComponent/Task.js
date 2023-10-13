@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 const Task = ({
 	task,
-	onFetchReducer,
-	showEditView,
-	showDeleteView
+	onCheckStatus,
+	onShowEditView,
+	onShowDeleteView
 }) => {
 	return (
 		<div className={styles.taskCard}>
@@ -23,7 +23,7 @@ const Task = ({
 			<div className={styles.taskStatus}>
 				<button
 					className={styles.status}
-					onClick={() => onFetchReducer({ task: task.id, method: 'SETSTATUS' })}
+					onClick={() => onCheckStatus(task.id)}
 				>
 					{task.statusText}
 				</button>
@@ -64,7 +64,7 @@ const Task = ({
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 					className={styles.ActionEdit}
-					onClick={() => showEditView(task.id)}
+					onClick={() => onShowEditView(task.id)}
 				>
 					<path
 						fillRule="evenodd"
@@ -80,7 +80,7 @@ const Task = ({
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 					className={styles.ActionDelete}
-					onClick={() => showDeleteView(task.id)}
+					onClick={() => onShowDeleteView(task.id)}
 				>
 					<path
 						fillRule="evenodd"

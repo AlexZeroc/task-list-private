@@ -1,62 +1,68 @@
 import styles from './DetailTaskPage.module.css';
-import DetailTask from './DetailTask';
 
+import DetailTaskForm from '../../components/UI/formModal/DetailTaskForm';
 import EditModal from '../../components/modal/editModal/EditModal';
 import DeleteModal from '../../components/modal/deleteModal/DeleteModal';
-import useFetch from '../../hooks/useFetch';
 import Wrapper from '../../components/UI/wrapper/Wrapper';
+import { useFetchStatus, useFetchIsTask} from '../../hooks/hooksService';
 
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const DetailTaskPage = () => {
 	const { taskId } = useParams();
-	const { dataDetail, fetchReducer } = useFetch(+taskId);
+    const setStatus = useFetchStatus(); 
+    const task = useFetchIsTask(+taskId);
 
-	const [editView, onSetEditView] = useState({
+
+	const [editView, handleSetEditView] = useState({
 		statusEditView: false
 	});
 
-	const [deleteView, onSetDeleteView] = useState({ statusDeleteView: false });
+	const [deleteView, handleSetDeleteView] = useState({ statusDeleteView: false });
 
-	const showEditView = (id) => {
-		const taskElement = dataDetail.find((obj) => obj.id === id);
+	const handleShowEditView = (id) => {
+		const taskElement = task.find((obj) => obj.id === id);
 
 		if (!taskElement) {
 			return;
 		}
 
-		onSetEditView({
+		handleSetEditView({
 			statusEditView: true,
 			...taskElement
 		});
 	};
 
-	const showDeleteView = (id) => {
-		const taskElement = dataDetail.find((obj) => obj.id === id);
+	const handleShowDeleteView = (id) => {
+		const taskElement = task.find((obj) => obj.id === id);
 		if (!taskElement) {
 			return;
 		}
-		onSetDeleteView({
+		handleSetDeleteView({
 			statusDeleteView: true,
 			idElement: taskElement.id
 		});
 	};
+    const handleCheckStatus = (id) => {
+        setStatus(id);
+    }; 
 
-	const taskContainer = dataDetail.map((task) =>
-		<DetailTask
+
+	const taskContainer = task.map((task) =>
+		<DetailTaskForm 
 			key={+taskId}
 			task={task}
-			onFetchReducer={fetchReducer}
-			showEditView={showEditView}
-			showDeleteView={showDeleteView}
+			onCheckStatus={handleCheckStatus}
+			onShowEditView={handleShowEditView}
+			onShowDeleteView={handleShowDeleteView}
 		/>
 	);
 
 	return <Wrapper>
 		<div className={styles.container}>{taskContainer}</div>
-		{editView.statusEditView && <EditModal editView={editView} onSetEditView={onSetEditView} />}
-		{deleteView.statusDeleteView && <DeleteModal deleteView={deleteView} onSetDeleteView={onSetDeleteView} />}
+		{editView.statusEditView && <EditModal editView={editView} onSetEditView={handleSetEditView} />}
+		{deleteView.statusDeleteView && <DeleteModal deleteView={deleteView} onSetDeleteView={handleSetDeleteView} />}
 	</Wrapper>;
 };
 

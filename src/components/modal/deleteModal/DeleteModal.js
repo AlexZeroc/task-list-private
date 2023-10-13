@@ -1,14 +1,14 @@
 import styles from './DeleteModal.module.css';
 
 import ModalWrapper from '../../UI/wrapper/ModalWrapper';
-import useFetch from '../../../hooks/useFetch';
+import { useFetchDelete } from '../../../hooks/hooksService';
 
 import { useNavigate } from 'react-router-dom';
-const DeleteModal = ({ onSetDeleteView, deleteView }) => {
+const DeleteModal = ({ onSetDeleteView,  deleteView }) => {
 	const navigate = useNavigate();
-	const { fetchReducer } = useFetch();
+    const handleDeleteTask = useFetchDelete();
 	const handleDeleteTaskElement = () => {
-		fetchReducer({ task: deleteView.idElement, method: 'DELETE' });
+		handleDeleteTask(deleteView.idElement);
 
 		onSetDeleteView((prevState) => ({
 			...prevState,
@@ -27,7 +27,7 @@ const DeleteModal = ({ onSetDeleteView, deleteView }) => {
 					<button
 						className={styles.outlineButton}
 						onClick={() =>
-						  onSetDeleteView((prevState) => ({
+                            onSetDeleteView((prevState) => ({
 						    ...prevState,
 						    statusDeleteView: false
 						  }))

@@ -7,7 +7,7 @@ const FormModal = ({
 	onSetTask,
 	onPostFormTask,
 	onCheckStatusTask,
-	closeModal,
+	onCloseModal,
 	textButton
 }) => {
 	return (
@@ -22,7 +22,7 @@ const FormModal = ({
 						fill="none"
 						xmlns="http://www.w3.org/2000/svg"
 						className={styles.cp}
-						onClick={closeModal}
+						onClick={onCloseModal}
 					>
 						<path
 							fillRule="evenodd"
@@ -51,7 +51,7 @@ const FormModal = ({
 							}`}
 							onClick={(event) => onCheckStatusTask(event)}
 						>
-              high
+            high
 						</li>
 						<li
 							className={`${priority === 2 && styles.mediumSelected} ${
@@ -59,7 +59,7 @@ const FormModal = ({
 							}`}
 							onClick={(event) => onCheckStatusTask(event)}
 						>
-              medium
+            medium
 						</li>
 						<li
 							className={`${priority === 1 && styles.lowSelected} ${
@@ -67,7 +67,7 @@ const FormModal = ({
 							}`}
 							onClick={(event) => onCheckStatusTask(event)}
 						>
-              low
+            low
 						</li>
 					</ul>
 				</div>

@@ -3,57 +3,62 @@ import Task from './Task';
 
 import EditModal from '../modal/editModal/EditModal';
 import DeleteModal from '../modal/deleteModal/DeleteModal';
-import useFetch from '../../hooks/useFetch';
+import { useFetchStatus, useFetchTaskList } from '../../hooks/hooksService';
 
 import { useState } from 'react';
 
 const TaskList = () => {
-	const { data, fetchReducer } = useFetch();
-
-	const [editView, onSetEditView] = useState({
+    const data = useFetchTaskList();
+    const setStatus = useFetchStatus();
+	const [editView, handleSetEditView] = useState({
 		statusEditView: false
 	});
+    
 
-	const [deleteView, onSetDeleteView] = useState({ statusDeleteView: false });
+	const [deleteView, handleSetDeleteView] = useState({ statusDeleteView: false });
 
-	const showEditView = (id) => {
+	const handleShowEditView = (id) => {
 		const taskElement = data.find((obj) => obj.id === id);
 
 		if (!taskElement) {
 			return;
 		}
 
-		onSetEditView({
+		handleSetEditView({
 			statusEditView: true,
 			...taskElement
 		});
 	};
 
-	const showDeleteView = (id) => {
+	const handleShowDeleteView = (id) => {
 		const taskElement = data.find((obj) => obj.id === id);
 		if (!taskElement) {
 			return;
 		}
-		onSetDeleteView({
+		handleSetDeleteView({
 			statusDeleteView: true,
 			idElement: taskElement.id
 		});
 	};
 
+    const handleCheckStatus = (id) => {
+        setStatus(id);
+    }; 
+
 	const taskListContainer = data.map((task) =>
 		<Task
 			key={task.id}
 			task={task}
-			onFetchReducer={fetchReducer}
-			showEditView={showEditView}
-			showDeleteView={showDeleteView}
+			onCheckStatus={handleCheckStatus}
+			onShowEditView={handleShowEditView}
+			onShowDeleteView={handleShowDeleteView}
 		/>
 	);
 
 	return <>
 		<div className={styles.container}>{taskListContainer}</div>
-		{editView.statusEditView && <EditModal editView={editView} onSetEditView={onSetEditView} />}
-		{deleteView.statusDeleteView && <DeleteModal deleteView={deleteView} onSetDeleteView={onSetDeleteView} />}
+		{editView.statusEditView && <EditModal editView={editView} onSetEditView={handleSetEditView} />}
+		{deleteView.statusDeleteView && <DeleteModal deleteView={deleteView} onSetDeleteView={handleSetDeleteView} />}
 	</>;
 };
 
