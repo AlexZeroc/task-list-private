@@ -9,4 +9,3 @@ const ModalWrapper = ({ children }) => {
 };
 
 export default ModalWrapper;
-f;
