@@ -34,7 +34,7 @@ const AddModal = ({ onSetAddView }) => {
     onSetAddView((prevState) => ({ ...prevState, statusAddView: false }));
   };
 
-  const handleCheckStatusTask = (event) => {
+  const onChangeStatus = (event) => {
     const textStatusLink = event.target.firstChild.data;
     switch (textStatusLink) {
       case "high":
@@ -68,7 +68,7 @@ const AddModal = ({ onSetAddView }) => {
         taskText={taskText}
         onSetTask={handleSetTask}
         onPostFormTask={handlePostAddFormTask}
-        onCheckStatusTask={handleCheckStatusTask}
+        onChangeStatus={onChangeStatus}
         onCloseModal={handleCloseAddModal}
         textButton={"Add"}
       />

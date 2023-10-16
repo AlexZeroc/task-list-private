@@ -6,7 +6,7 @@ const FormModal = ({
 	taskText,
 	onSetTask,
 	onPostFormTask,
-	onCheckStatusTask,
+	onChangeStatus,
 	onCloseModal,
 	textButton
 }) => {
@@ -49,7 +49,7 @@ const FormModal = ({
 							className={`${priority === 3 && styles.highSelected} ${
 								styles.high
 							}`}
-							onClick={(event) => onCheckStatusTask(event)}
+							onClick={(event) => onChangeStatus(event)}
 						>
             high
 						</li>
@@ -57,7 +57,7 @@ const FormModal = ({
 							className={`${priority === 2 && styles.mediumSelected} ${
 								styles.medium
 							}`}
-							onClick={(event) => onCheckStatusTask(event)}
+							onClick={(event) => onChangeStatus(event)}
 						>
             medium
 						</li>
@@ -65,7 +65,7 @@ const FormModal = ({
 							className={`${priority === 1 && styles.lowSelected} ${
 								styles.low
 							}`}
-							onClick={(event) => onCheckStatusTask(event)}
+							onClick={(event) => onChangeStatus(event)}
 						>
             low
 						</li>
