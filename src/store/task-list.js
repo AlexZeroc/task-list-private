@@ -36,7 +36,7 @@ export const TaskContextProvider = ({ children }) => {
     <TaskContext.Provider
       value={{
         setDataTask,
-        arrayUserTask: state,
+        stateUserTasks: state,
         setTaskStatus,
         editedTask,
         addTask,

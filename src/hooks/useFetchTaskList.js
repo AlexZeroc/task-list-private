@@ -3,11 +3,11 @@ import TaskContext from "../store/task-list";
 import { useContext, useState } from "react";
 
 export const useFetchTaskList = () => {
-  const { arrayUserTask } = useContext(TaskContext);
+  const { stateUserTasks } = useContext(TaskContext);
   const [tasks, setTasks] = useState([]);
   const responce = async () => {
     try {
-      const arrayTasks = await arrayUserTask;
+      const arrayTasks = await stateUserTasks;
       setTasks(arrayTasks);
     } catch (err) {
       throw new Error(err);

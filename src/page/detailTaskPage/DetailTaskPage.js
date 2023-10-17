@@ -4,7 +4,7 @@ import DetailTaskForm from "../../components/UI/formModal/DetailTaskForm";
 import EditModal from "../../components/modal/editModal/EditModal";
 import DeleteModal from "../../components/modal/deleteModal/DeleteModal";
 import Wrapper from "../../components/UI/wrapper/Wrapper";
-import { useFetchSpecificTask } from "../../hooks/useFetchSpecificTask";
+import { useFetchTaskById } from "../../hooks/useFetchTaskById";
 import { useFetchSetStatus } from "../../hooks/useFetchSetStatus";
 
 import { useState } from "react";
@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 const DetailTaskPage = () => {
   const { taskId } = useParams();
   const setStatus = useFetchSetStatus();
-  const task = useFetchSpecificTask(+taskId);
+  const task = useFetchTaskById(+taskId);
 
   const [editView, handleSetEditView] = useState({
     statusEditView: false,

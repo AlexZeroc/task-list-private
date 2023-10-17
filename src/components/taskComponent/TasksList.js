@@ -58,7 +58,7 @@ const TaskList = () => {
     />
   ));
   if (taskListContainer.length === 0) {
-    return <Spinner animation="border" variant="primary" />;
+    return <Spinner animation="border" variant="primary"/>;
   }
 
   return (
