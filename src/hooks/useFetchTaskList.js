@@ -4,16 +4,23 @@ import { useContext, useState } from "react";
 
 export const useFetchTaskList = () => {
   const { currentUserTasks } = useContext(MockTasksContext);
-  const [tasks, setTasks] = useState([]);
-  const responce = async () => {
-    try {
-      const arrayTasks = await currentUserTasks;
-      setTasks(arrayTasks);
-    } catch (err) {
-      throw new Error(err);
-    }
-  };
+  const [data, setData] = useState(null);
+  const [isLoading, checkLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  setTimeout(responce, 500);
-  return tasks;
+  const fetchTasks = async () =>
+    new Promise((response) => {
+      response(currentUserTasks);
+    })
+      .then((response) => {
+        checkLoading(false);
+        setData(response);
+      })
+      .catch((err) => {
+        setError(err);
+      });
+
+  setTimeout(fetchTasks, 500);
+
+  return [data, isLoading, error];
 };
