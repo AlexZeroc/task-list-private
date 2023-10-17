@@ -6,8 +6,8 @@ import React, { useReducer } from "react";
 
 const initialState = setTaskDataStructure(DEFAULT_TASKS);
 
-const TaskContext = React.createContext();
-export const TaskContextProvider = ({ children }) => {
+const MockTasksContext = React.createContext();
+export const MockTasksProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const addTask = (task) => {
@@ -33,7 +33,7 @@ export const TaskContextProvider = ({ children }) => {
   };
 
   return (
-    <TaskContext.Provider
+    <MockTasksContext.Provider
       value={{
         setDataTask,
         stateUserTasks: state,
@@ -44,8 +44,8 @@ export const TaskContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </TaskContext.Provider>
+    </MockTasksContext.Provider>
   );
 };
 
-export default TaskContext;
+export default MockTasksContext;

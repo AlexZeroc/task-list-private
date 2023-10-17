@@ -1,9 +1,9 @@
-import TaskContext from "../store/task-list";
+import MockTasksContext from "../store/task-list";
 
 import { useContext, useState } from "react";
 
 export const useFetchTaskList = () => {
-  const { stateUserTasks } = useContext(TaskContext);
+  const { stateUserTasks } = useContext(MockTasksContext);
   const [tasks, setTasks] = useState([]);
   const responce = async () => {
     try {
