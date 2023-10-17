@@ -7,6 +7,7 @@ import { useFetchTaskList } from "../../hooks/useFetchTaskList";
 import { useFetchSetStatus } from "../../hooks/useFetchSetStatus";
 
 import { useState } from "react";
+import { Spinner } from "react-bootstrap";
 
 const TaskList = () => {
   const data = useFetchTaskList();
@@ -56,6 +57,9 @@ const TaskList = () => {
       onShowDeleteView={handleShowDeleteView}
     />
   ));
+  if (taskListContainer.length === 0) {
+    return <Spinner animation="border" variant="primary" />;
+  }
 
   return (
     <>
