@@ -3,12 +3,12 @@ import TaskContext from "../store/task-list";
 import { useContext, useEffect, useState } from "react";
 
 export const useFetchTaskList = () => {
-  const { dataTask } = useContext(TaskContext);
-  const [data, setData] = useState(dataTask);
+  const { arrayUserTask } = useContext(TaskContext);
+  const [data, setData] = useState(arrayUserTask);
   useEffect(() => {
-    const resolve = dataTask;
+    const resolve = arrayUserTask;
     setData(resolve);
-  }, [setData, dataTask]);
+  }, [setData, arrayUserTask]);
 
   return data;
 };

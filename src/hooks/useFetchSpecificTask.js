@@ -2,7 +2,7 @@ import TaskContext from "../store/task-list";
 
 import { useContext, useEffect, useState } from "react";
 
-export const useFetchIsTask = (id) => {
+export const useFetchSpecificTask = (id) => {
   const { setDataTask } = useContext(TaskContext);
   const [dataDetail, setDataDetail] = useState(setDataTask);
   useEffect(() => {
