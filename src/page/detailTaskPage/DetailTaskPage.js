@@ -6,6 +6,7 @@ import DeleteModal from "../../components/modal/deleteModal/DeleteModal";
 import Wrapper from "../../components/UI/wrapper/Wrapper";
 import { useFetchTaskById } from "../../hooks/useFetchTaskById";
 import { useFetchSetStatus } from "../../hooks/useFetchSetStatus";
+import { useFetchTaskList } from "../../hooks/useFetchTaskList";
 
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -13,7 +14,8 @@ import { useParams } from "react-router-dom";
 const DetailTaskPage = () => {
   const { taskId } = useParams();
   const setStatus = useFetchSetStatus();
-  const task = useFetchTaskById(+taskId);
+  const taskById = useFetchTaskById(+taskId);
+  const data = useFetchTaskList();
 
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
@@ -24,7 +26,7 @@ const DetailTaskPage = () => {
   });
 
   const handleShowEditView = (id) => {
-    const taskElement = task.find((obj) => obj.id === id);
+    const taskElement = data.find((obj) => obj.id === id);
 
     if (!taskElement) {
       return;
@@ -37,7 +39,7 @@ const DetailTaskPage = () => {
   };
 
   const handleShowDeleteView = (id) => {
-    const taskElement = task.find((obj) => obj.id === id);
+    const taskElement = data.find((obj) => obj.id === id);
     if (!taskElement) {
       return;
     }
@@ -49,16 +51,15 @@ const DetailTaskPage = () => {
   const handleCheckStatus = (id) => {
     setStatus(id);
   };
-
-  const taskContainer = task.map((task) => (
+  const taskContainer = (
     <DetailTaskForm
       key={+taskId}
-      task={task}
+      task={taskById}
       onCheckStatus={handleCheckStatus}
       onShowEditView={handleShowEditView}
       onShowDeleteView={handleShowDeleteView}
     />
-  ));
+  );
 
   return (
     <Wrapper>

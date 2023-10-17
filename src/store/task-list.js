@@ -26,17 +26,17 @@ export const MockTasksProvider = ({ children }) => {
     dispatch({ type: "setStatus", task });
   };
 
-  const setDataTask = (id) => {
-    const isTask = state.find((task) => task.id === id);
-    const setTask = [{ ...isTask }];
-    return setTask;
+  const currentUserTasksById = (id) => {
+    const elementArrayTasksFoundById = state.find((task) => task.id === id);
+
+    return elementArrayTasksFoundById;
   };
 
   return (
     <MockTasksContext.Provider
       value={{
-        setDataTask,
-        stateUserTasks: state,
+        currentUserTasksById,
+        currentUserTasks: state,
         setTaskStatus,
         editedTask,
         addTask,
