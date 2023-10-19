@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Spinner } from "react-bootstrap";
 
 const TaskList = () => {
-  const [data, isLoading] = useFetchTaskList();
+  const [data, isLoadingStatus] = useFetchTaskList();
   const setStatus = useFetchSetStatus();
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
@@ -48,34 +48,38 @@ const TaskList = () => {
     setStatus(id);
   };
 
-  if (isLoading) {
+  if (isLoadingStatus.status === "expectation")
+    return <h1>Expectation loading...</h1>;
+
+  if (isLoadingStatus.status === "loading") {
     return <Spinner animation="border" variant="primary" />;
   }
+  if (isLoadingStatus.status === "ok") {
+    const taskListContainer = data.map((task) => (
+      <Task
+        key={task.id}
+        task={task}
+        onCheckStatus={handleCheckStatus}
+        onShowEditView={handleShowEditView}
+        onShowDeleteView={handleShowDeleteView}
+      />
+    ));
 
-  const taskListContainer = data.map((task) => (
-    <Task
-      key={task.id}
-      task={task}
-      onCheckStatus={handleCheckStatus}
-      onShowEditView={handleShowEditView}
-      onShowDeleteView={handleShowDeleteView}
-    />
-  ));
-
-  return (
-    <>
-      <div className={styles.container}>{taskListContainer}</div>
-      {editView.statusEditView && (
-        <EditModal editView={editView} onSetEditView={handleSetEditView} />
-      )}
-      {deleteView.statusDeleteView && (
-        <DeleteModal
-          deleteView={deleteView}
-          onSetDeleteView={handleSetDeleteView}
-        />
-      )}
-    </>
-  );
+    return (
+      <>
+        <div className={styles.container}>{taskListContainer}</div>
+        {editView.statusEditView && (
+          <EditModal editView={editView} onSetEditView={handleSetEditView} />
+        )}
+        {deleteView.statusDeleteView && (
+          <DeleteModal
+            deleteView={deleteView}
+            onSetDeleteView={handleSetDeleteView}
+          />
+        )}
+      </>
+    );
+  }
 };
 
 export default TaskList;

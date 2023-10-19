@@ -1,26 +1,36 @@
 import MockTasksContext from "../store/task-list";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export const useFetchTaskList = () => {
   const { currentUserTasks } = useContext(MockTasksContext);
-  const [data, setData] = useState(null);
-  const [isLoading, checkLoading] = useState(true);
-  const [error, setError] = useState(null);
-
+  const [data, handleSetData] = useState(null);
+  const [isLoadingStatus, handleSetIsLoadingStatus] = useState({
+    status: "expectation",
+  });
+  const [error, hanldeSetError] = useState();
   const fetchTasks = async () =>
-    new Promise((response) => {
-      response(currentUserTasks);
+    new Promise((resolve, reject) => {
+      handleSetIsLoadingStatus({
+        status: "loading",
+      });
+      setTimeout(() => {
+        resolve(currentUserTasks);
+        reject("error");
+      }, 500);
     })
       .then((response) => {
-        checkLoading(false);
-        setData(response);
+        handleSetIsLoadingStatus({
+          status: "ok",
+        });
+        handleSetData(response);
+        return;
       })
-      .catch((err) => {
-        setError(err);
-      });
+      .catch((error) => hanldeSetError(error));
+  useEffect(() => {
+    fetchTasks();
+    return () => {};
+  }, [currentUserTasks]);
 
-  setTimeout(fetchTasks, 500);
-
-  return [data, isLoading, error];
+  return [data, isLoadingStatus, error];
 };
