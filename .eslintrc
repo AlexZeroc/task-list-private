@@ -7,7 +7,6 @@
   "extends": ["react-app", "react-app/jest"],
   "plugins": ["react"],
   "rules": {
-
     "react/prop-types": 0,
     "no-console": "warn",
     "no-const-assign": "error",
@@ -22,10 +21,6 @@
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
 
-    "no-unused-vars": [
-      "error",
-      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
-    ],
     "eqeqeq": ["error", "smart"],
     "no-var": "error",
     "prefer-exponentiation-operator": "error",
