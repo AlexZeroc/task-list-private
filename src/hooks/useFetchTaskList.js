@@ -1,4 +1,5 @@
 import MockTasksContext from "../store/task-list";
+import { fetchTaskList } from "../utility/fetchTaskList";
 
 import { useContext, useEffect, useState } from "react";
 
@@ -8,24 +9,17 @@ export const useFetchTaskList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
-  const delay = (ms) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(currentUserTasks);
-      }, ms);
-    });
-  };
+
   useEffect(() => {
     const requestTasks = async () => {
       setIsLoading(true);
-      try {
-        const response = await delay(500);
-        setIsLoading(false);
-        setIsLoaded(true);
-        setData(response);
-      } catch {
-        setError(true);
-      }
+      fetchTaskList(500)
+        .then(() => {
+          setData(currentUserTasks);
+          setIsLoading(false);
+          setIsLoaded(true);
+        })
+        .catch((err) => setError(err));
     };
     requestTasks();
     return () => {};
