@@ -1,5 +1,6 @@
 import styles from "./DetailTaskPage.module.css";
 
+import ErrorPage from "../ErrorPage";
 import DetailTaskForm from "../../components/UI/formModal/DetailTaskForm";
 import EditModal from "../../components/modal/editModal/EditModal";
 import DeleteModal from "../../components/modal/deleteModal/DeleteModal";
@@ -10,12 +11,13 @@ import { useFetchTaskList } from "../../hooks/useFetchTaskList";
 
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
 const DetailTaskPage = () => {
   const { taskId } = useParams();
   const setStatus = useFetchSetStatus();
-  const taskById = useFetchTaskById(+taskId);
-  const data = useFetchTaskList();
+  const [dataById, isLoading, isLoaded, error] = useFetchTaskById(+taskId);
+  const [data] = useFetchTaskList();
 
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
@@ -51,30 +53,37 @@ const DetailTaskPage = () => {
   const handleCheckStatus = (id) => {
     setStatus(id);
   };
-  const taskContainer = (
-    <DetailTaskForm
-      key={+taskId}
-      task={taskById}
-      onCheckStatus={handleCheckStatus}
-      onShowEditView={handleShowEditView}
-      onShowDeleteView={handleShowDeleteView}
-    />
-  );
 
-  return (
-    <Wrapper>
-      <div className={styles.container}>{taskContainer}</div>
-      {editView.statusEditView && (
-        <EditModal editView={editView} onSetEditView={handleSetEditView} />
-      )}
-      {deleteView.statusDeleteView && (
-        <DeleteModal
-          deleteView={deleteView}
-          onSetDeleteView={handleSetDeleteView}
-        />
-      )}
-    </Wrapper>
-  );
+  if (isLoading) return <Spinner animation="border" variant="primary" />;
+
+  if (error) return <ErrorPage />;
+
+  if (isLoaded) {
+    const taskContainer = (
+      <DetailTaskForm
+        key={+taskId}
+        task={dataById}
+        onCheckStatus={handleCheckStatus}
+        onShowEditView={handleShowEditView}
+        onShowDeleteView={handleShowDeleteView}
+      />
+    );
+
+    return (
+      <Wrapper>
+        <div className={styles.container}>{taskContainer}</div>
+        {editView.statusEditView && (
+          <EditModal editView={editView} onSetEditView={handleSetEditView} />
+        )}
+        {deleteView.statusDeleteView && (
+          <DeleteModal
+            deleteView={deleteView}
+            onSetDeleteView={handleSetDeleteView}
+          />
+        )}
+      </Wrapper>
+    );
+  }
 };
 
 export default DetailTaskPage;

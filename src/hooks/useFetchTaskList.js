@@ -4,33 +4,31 @@ import { useContext, useEffect, useState } from "react";
 
 export const useFetchTaskList = () => {
   const { currentUserTasks } = useContext(MockTasksContext);
-  const [data, handleSetData] = useState(null);
-  const [isLoadingStatus, handleSetIsLoadingStatus] = useState({
-    status: "expectation",
-  });
-  const [error, hanldeSetError] = useState();
-  const fetchTasks = async () =>
-    new Promise((resolve, reject) => {
-      handleSetIsLoadingStatus({
-        status: "loading",
-      });
-      setTimeout(() => {
-        resolve(currentUserTasks);
-        reject("error");
-      }, 500);
-    })
-      .then((response) => {
-        handleSetIsLoadingStatus({
-          status: "ok",
-        });
-        handleSetData(response);
-        return;
-      })
-      .catch((error) => hanldeSetError(error));
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    fetchTasks();
+    const requestTasks = async () => {
+      setIsLoading(true);
+
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(currentUserTasks);
+          reject("error");
+        }, 500);
+      })
+        .then((response) => {
+          setIsLoading(false);
+          setIsLoaded(true);
+          return setData(response);
+        })
+        .catch((error) => setError(error));
+    };
+    requestTasks();
     return () => {};
   }, [currentUserTasks]);
 
-  return [data, isLoadingStatus, error];
+  return [data, isLoading, isLoaded, error];
 };

@@ -3,6 +3,7 @@ import Task from "./Task";
 
 import EditModal from "../modal/editModal/EditModal";
 import DeleteModal from "../modal/deleteModal/DeleteModal";
+import ErrorPage from "../../page/ErrorPage";
 import { useFetchTaskList } from "../../hooks/useFetchTaskList";
 import { useFetchSetStatus } from "../../hooks/useFetchSetStatus";
 
@@ -10,7 +11,7 @@ import { useState } from "react";
 import { Spinner } from "react-bootstrap";
 
 const TaskList = () => {
-  const [data, isLoadingStatus] = useFetchTaskList();
+  const [data, isLoading, isLoaded, error] = useFetchTaskList();
   const setStatus = useFetchSetStatus();
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
@@ -48,13 +49,11 @@ const TaskList = () => {
     setStatus(id);
   };
 
-  if (isLoadingStatus.status === "expectation")
-    return <h1>Expectation loading...</h1>;
+  if (isLoading) return <Spinner animation="border" variant="primary" />;
 
-  if (isLoadingStatus.status === "loading") {
-    return <Spinner animation="border" variant="primary" />;
-  }
-  if (isLoadingStatus.status === "ok") {
+  if (error) return <ErrorPage />;
+
+  if (isLoaded) {
     const taskListContainer = data.map((task) => (
       <Task
         key={task.id}
