@@ -8,17 +8,19 @@ export const useFetchTaskList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
-
+  const delayRequest = (ms) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(currentUserTasks);
+        reject("error");
+      }, ms);
+    });
+  };
   useEffect(() => {
     const requestTasks = async () => {
       setIsLoading(true);
 
-      new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(currentUserTasks);
-          reject("error");
-        }, 500);
-      })
+      await delayRequest(500)
         .then((response) => {
           setIsLoading(false);
           setIsLoaded(true);
