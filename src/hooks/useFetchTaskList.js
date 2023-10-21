@@ -8,7 +8,7 @@ export const useFetchTaskList = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [isLoaded, setIsLoaded] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const fetchTaskList = () => wait(500).then(() => getAllTasks());
 
   useEffect(() => {
