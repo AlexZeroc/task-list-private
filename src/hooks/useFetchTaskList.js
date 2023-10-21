@@ -6,8 +6,8 @@ import { useContext, useEffect, useState } from "react";
 export const useFetchTaskList = () => {
   const { getAllTasks } = useContext(MockTasksContext);
   const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState();
+  const [isLoaded, setIsLoaded] = useState();
   const [error, setError] = useState(false);
   const fetchTaskList = () => wait(500).then(() => getAllTasks());
 
@@ -17,11 +17,13 @@ export const useFetchTaskList = () => {
       try {
         const tasks = await fetchTaskList();
         setData(tasks);
-        setIsLoading(false);
         setIsLoaded(true);
       } catch (err) {
         setIsLoading(false);
+        setIsLoaded(false);
         setError(err);
+      } finally {
+        setIsLoading(false);
       }
     };
     loadAllTasks();
