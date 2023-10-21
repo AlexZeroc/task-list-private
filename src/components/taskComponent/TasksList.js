@@ -16,7 +16,7 @@ const TaskList = () => {
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
   });
-
+  console.log(setStatus);
   const [deleteView, handleSetDeleteView] = useState({
     statusDeleteView: false,
   });
