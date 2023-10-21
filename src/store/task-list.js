@@ -14,7 +14,7 @@ export const MockTasksProvider = ({ children }) => {
     dispatch({ type: "add", task });
   };
 
-  const editedTask = (task) => {
+  const updateTask = (task) => {
     dispatch({ type: "edit", task });
   };
 
@@ -26,7 +26,7 @@ export const MockTasksProvider = ({ children }) => {
     dispatch({ type: "setStatus", task });
   };
 
-  const updateTask = () => {
+  const getAllTasks = () => {
     return state;
   };
 
@@ -40,9 +40,9 @@ export const MockTasksProvider = ({ children }) => {
     <MockTasksContext.Provider
       value={{
         currentUserTasksById,
-        getAllTasks: updateTask,
+        getAllTasks,
         updateTaskStatus,
-        editedTask,
+        updateTask,
         addTask,
         deleteTask,
       }}

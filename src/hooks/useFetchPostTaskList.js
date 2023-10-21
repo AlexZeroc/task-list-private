@@ -3,7 +3,7 @@ import MockTasksContext from "../store/task-list";
 import { useContext } from "react";
 
 export const useFetchPostTaskList = () => {
-  const { editedTask } = useContext(MockTasksContext);
+  const { updateTask } = useContext(MockTasksContext);
 
-  return editedTask;
+  return updateTask;
 };
