@@ -9,23 +9,20 @@ export const useFetchTaskList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
+  const fetchTaskList = async () => wait(500).then(() => getAllTasks());
 
   useEffect(() => {
     setIsLoading(true);
+    fetchTaskList()
+      .then((tasks) => {
+        console.log(tasks);
+        setData(tasks);
+        setIsLoading(false);
+        setIsLoaded(true);
+      })
+      .catch((err) => setError(err));
 
-    const fetchTaskList = async () => {
-      wait(500)
-        .then(() => getAllTasks())
-        .then((response) => {
-          setData(response);
-          setIsLoading(false);
-          setIsLoaded(true);
-        })
-        .catch((err) => setError(err));
-    };
-    fetchTaskList();
     return () => {};
   }, [getAllTasks]);
-
   return [data, isLoading, isLoaded, error];
 };

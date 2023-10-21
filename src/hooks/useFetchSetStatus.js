@@ -4,6 +4,5 @@ import { useContext } from "react";
 
 export const useFetchSetStatus = () => {
   const { updateTaskStatus } = useContext(MockTasksContext);
-  console.log(updateTaskStatus);
   return updateTaskStatus;
 };
