@@ -4,6 +4,8 @@ import { useContext } from "react";
 
 export const useFetchPostTaskList = () => {
   const { updateTask } = useContext(MockTasksContext);
-
-  return updateTask;
+  const fetchUpdateTask = async (body) => {
+    await updateTask(body);
+  };
+  return fetchUpdateTask;
 };

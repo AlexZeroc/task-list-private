@@ -19,7 +19,6 @@ export const useFetchTaskList = () => {
         setData(tasks);
         setIsLoaded(true);
       } catch (err) {
-        setIsLoading(false);
         setIsLoaded(false);
         setError(err);
       } finally {

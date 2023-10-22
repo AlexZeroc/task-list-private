@@ -4,5 +4,8 @@ import { useContext } from "react";
 
 export const useFetchDelete = () => {
   const { deleteTask } = useContext(MockTasksContext);
-  return deleteTask;
+  const fetchDeleteTask = async (id) => {
+    await deleteTask(id);
+  };
+  return fetchDeleteTask;
 };
