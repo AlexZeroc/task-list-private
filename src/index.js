@@ -14,7 +14,7 @@ root.render(
     <MockTasksProvider>
       <App />
     </MockTasksProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 reportWebVitals();
