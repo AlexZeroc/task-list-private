@@ -1,7 +1,7 @@
-import styles from "./DetailTaskForm.module.css";
+import styles from './DetailTaskForm.module.css'
 
-import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom'
+import { Button } from 'react-bootstrap'
 
 const DetailTaskForm = ({
   task,
@@ -9,7 +9,7 @@ const DetailTaskForm = ({
   onShowEditView,
   onShowDeleteView,
 }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   return (
     <div className={styles.taskCard}>
       <div className={styles.taskName}>
@@ -92,11 +92,11 @@ const DetailTaskForm = ({
           ></path>
         </svg>
       </div>
-      <Button onClick={() => navigate("/")} variant="outline-primary">
+      <Button onClick={() => navigate('/')} variant="outline-primary">
         Back
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default DetailTaskForm;
+export default DetailTaskForm

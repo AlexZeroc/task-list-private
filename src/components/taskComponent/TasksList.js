@@ -1,56 +1,56 @@
-import styles from "./TaskList.module.css";
-import Task from "./Task";
+import styles from './TaskList.module.css'
+import Task from './Task'
 
-import EditModal from "../modal/editModal/EditModal";
-import DeleteModal from "../modal/deleteModal/DeleteModal";
-import ErrorPage from "../../page/ErrorPage";
-import { useFetchTaskList } from "../../hooks/useFetchTaskList";
-import { useFetchSetStatus } from "../../hooks/useFetchSetStatus";
+import EditModal from '../modal/editModal/EditModal'
+import DeleteModal from '../modal/deleteModal/DeleteModal'
+import ErrorPage from '../../page/ErrorPage'
+import { useFetchTaskList } from '../../hooks/useFetchTaskList'
+import { useFetchSetStatus } from '../../hooks/useFetchSetStatus'
 
-import { useState } from "react";
-import { Spinner } from "react-bootstrap";
+import { useState } from 'react'
+import { Spinner } from 'react-bootstrap'
 
 const TaskList = () => {
-  const [data, isLoading, isLoaded, error] = useFetchTaskList();
-  const setStatus = useFetchSetStatus();
+  const [data, isLoading, isLoaded, error] = useFetchTaskList()
+  const setStatus = useFetchSetStatus()
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
-  });
+  })
   const [deleteView, handleSetDeleteView] = useState({
     statusDeleteView: false,
-  });
+  })
 
   const handleShowEditView = (id) => {
-    const taskElement = data.find((obj) => obj.id === id);
+    const taskElement = data.find((obj) => obj.id === id)
 
     if (!taskElement) {
-      return;
+      return
     }
 
     handleSetEditView({
       statusEditView: true,
       ...taskElement,
-    });
-  };
+    })
+  }
 
   const handleShowDeleteView = (id) => {
-    const taskElement = data.find((obj) => obj.id === id);
+    const taskElement = data.find((obj) => obj.id === id)
     if (!taskElement) {
-      return;
+      return
     }
     handleSetDeleteView({
       statusDeleteView: true,
       idElement: taskElement.id,
-    });
-  };
+    })
+  }
 
   const handleCheckStatus = (id) => {
-    setStatus(id);
-  };
+    setStatus(id)
+  }
 
-  if (isLoading) return <Spinner animation="border" variant="primary" />;
+  if (isLoading) return <Spinner animation="border" variant="primary" />
 
-  if (error) return <ErrorPage />;
+  if (error) return <ErrorPage />
 
   if (isLoaded) {
     const taskListContainer = data.map((task) => (
@@ -61,7 +61,7 @@ const TaskList = () => {
         onShowEditView={handleShowEditView}
         onShowDeleteView={handleShowDeleteView}
       />
-    ));
+    ))
 
     return (
       <>
@@ -76,8 +76,8 @@ const TaskList = () => {
           />
         )}
       </>
-    );
+    )
   }
-};
+}
 
-export default TaskList;
+export default TaskList

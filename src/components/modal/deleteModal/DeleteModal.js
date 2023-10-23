@@ -1,21 +1,21 @@
-import styles from "./DeleteModal.module.css";
+import styles from './DeleteModal.module.css'
 
-import ModalWrapper from "../../UI/wrapper/ModalWrapper";
-import { useFetchDelete } from "../../../hooks/useFetchDelete";
+import ModalWrapper from '../../UI/wrapper/ModalWrapper'
+import { useFetchDelete } from '../../../hooks/useFetchDelete'
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 const DeleteModal = ({ onSetDeleteView, deleteView }) => {
-  const navigate = useNavigate();
-  const handleDeleteTask = useFetchDelete();
+  const navigate = useNavigate()
+  const handleDeleteTask = useFetchDelete()
   const handleDeleteTaskElement = () => {
-    handleDeleteTask(deleteView.idElement);
+    handleDeleteTask(deleteView.idElement)
 
     onSetDeleteView((prevState) => ({
       ...prevState,
       statusDeleteView: false,
-    }));
-    navigate("/");
-  };
+    }))
+    navigate('/')
+  }
   return (
     <ModalWrapper>
       <div className={styles.deleteModal}>
@@ -38,7 +38,7 @@ const DeleteModal = ({ onSetDeleteView, deleteView }) => {
         </div>
       </div>
     </ModalWrapper>
-  );
-};
+  )
+}
 
-export default DeleteModal;
+export default DeleteModal

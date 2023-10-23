@@ -1,18 +1,18 @@
-import styles from "./ViewTaskHeader.module.css";
-import AddTaskButton from "./AddTaskButton";
+import styles from './ViewTaskHeader.module.css'
+import AddTaskButton from './AddTaskButton'
 
-import AddModal from "../modal/addModal/AddModal";
+import AddModal from '../modal/addModal/AddModal'
 
-import { useState } from "react";
+import { useState } from 'react'
 
 const ViewTaskHeader = () => {
   const [addView, onSetAddView] = useState({
     statusAddView: false,
-  });
+  })
 
   const showAddView = () => {
-    onSetAddView({ statusAddView: true });
-  };
+    onSetAddView({ statusAddView: true })
+  }
 
   return (
     <>
@@ -22,7 +22,7 @@ const ViewTaskHeader = () => {
       </div>
       {addView.statusAddView && <AddModal onSetAddView={onSetAddView} />}
     </>
-  );
-};
+  )
+}
 
-export default ViewTaskHeader;
+export default ViewTaskHeader

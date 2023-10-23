@@ -1,11 +1,11 @@
-import MockTasksContext from "../store/task-list";
+import MockTasksContext from '../store/task-list'
 
-import { useContext } from "react";
+import { useContext } from 'react'
 
 export const useFetchAddTask = () => {
-  const { addTask } = useContext(MockTasksContext);
+  const { addTask } = useContext(MockTasksContext)
   const fetchNewTask = async (body) => {
-    await addTask(body);
-  };
-  return fetchNewTask;
-};
+    await addTask(body)
+  }
+  return fetchNewTask
+}

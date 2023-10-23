@@ -1,62 +1,62 @@
-import WrapperModal from "../../UI/wrapper/ModalWrapper";
-import FormModal from "../../UI/formModal/FormModal";
-import { useFetchPostTaskList } from "../../../hooks/useFetchPostTaskList";
+import WrapperModal from '../../UI/wrapper/ModalWrapper'
+import FormModal from '../../UI/formModal/FormModal'
+import { useFetchPostTaskList } from '../../../hooks/useFetchPostTaskList'
 
-import { useState } from "react";
+import { useState } from 'react'
 
 const EditModal = ({ editView, onSetEditView }) => {
-  const [taskText, handleSetTaskText] = useState("");
-  const hanldeEditTask = useFetchPostTaskList();
-  const defaultText = editView.name;
+  const [taskText, handleSetTaskText] = useState('')
+  const hanldeEditTask = useFetchPostTaskList()
+  const defaultText = editView.name
   const handleSetTask = (event) => {
-    handleSetTaskText(event.target.value);
-  };
+    handleSetTaskText(event.target.value)
+  }
 
   const handlePostEditFormTask = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     hanldeEditTask({
       id: editView.id,
       name: taskText,
       priority: editView.priority,
-    });
+    })
     onSetEditView((prevState) => ({
       ...prevState,
       statusEditView: false,
-    }));
-  };
+    }))
+  }
 
   const handleCloseEditModal = () => {
     onSetEditView((prevState) => ({
       ...prevState,
       statusEditView: false,
-    }));
-  };
+    }))
+  }
 
   const handleChangeStatus = (event) => {
-    const textStatusLink = event.target.firstChild.data;
+    const textStatusLink = event.target.firstChild.data
     switch (textStatusLink) {
-      case "high":
+      case 'high':
         onSetEditView((prevState) => ({
           ...prevState,
           priority: 3,
-        }));
-        break;
-      case "medium":
+        }))
+        break
+      case 'medium':
         onSetEditView((prevState) => ({
           ...prevState,
           priority: 2,
-        }));
-        break;
-      case "low":
+        }))
+        break
+      case 'low':
         onSetEditView((prevState) => ({
           ...prevState,
           priority: 1,
-        }));
-        break;
+        }))
+        break
       default:
-        break;
+        break
     }
-  };
+  }
 
   return (
     <WrapperModal>
@@ -68,10 +68,10 @@ const EditModal = ({ editView, onSetEditView }) => {
         onPostFormTask={handlePostEditFormTask}
         onChangeStatus={handleChangeStatus}
         onCloseModal={handleCloseEditModal}
-        textButton={"Edit"}
+        textButton={'Edit'}
       />
     </WrapperModal>
-  );
-};
+  )
+}
 
-export default EditModal;
+export default EditModal

@@ -1,40 +1,40 @@
-import DEFAULT_TASKS from "./ConstantsVariable";
-import reducer from "./reducer";
-import setTaskDataStructure from "./setTaskDataStructure";
+import DEFAULT_TASKS from './ConstantsVariable'
+import reducer from './reducer'
+import setTaskDataStructure from './setTaskDataStructure'
 
-import React, { useReducer } from "react";
+import React, { useReducer } from 'react'
 
-const initialState = setTaskDataStructure(DEFAULT_TASKS);
+const initialState = setTaskDataStructure(DEFAULT_TASKS)
 
-const MockTasksContext = React.createContext();
+const MockTasksContext = React.createContext()
 export const MockTasksProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   const addTask = (task) => {
-    dispatch({ type: "add", task });
-  };
+    dispatch({ type: 'add', task })
+  }
 
   const updateTask = (task) => {
-    dispatch({ type: "edit", task });
-  };
+    dispatch({ type: 'edit', task })
+  }
 
   const deleteTask = (task) => {
-    dispatch({ type: "delete", task });
-  };
+    dispatch({ type: 'delete', task })
+  }
 
   const updateTaskStatus = (task) => {
-    dispatch({ type: "setStatus", task });
-  };
+    dispatch({ type: 'setStatus', task })
+  }
 
   const getAllTasks = () => {
-    return state;
-  };
+    return state
+  }
 
   const currentUserTasksById = (id) => {
-    const elementArrayTasksFoundById = state.find((task) => task.id === id);
+    const elementArrayTasksFoundById = state.find((task) => task.id === id)
 
-    return elementArrayTasksFoundById;
-  };
+    return elementArrayTasksFoundById
+  }
 
   return (
     <MockTasksContext.Provider
@@ -49,7 +49,7 @@ export const MockTasksProvider = ({ children }) => {
     >
       {children}
     </MockTasksContext.Provider>
-  );
-};
+  )
+}
 
-export default MockTasksContext;
+export default MockTasksContext

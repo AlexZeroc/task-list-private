@@ -1,4 +1,4 @@
-import styles from "./FormModal.module.css";
+import styles from './FormModal.module.css'
 
 const FormModal = ({
   defaultText,
@@ -82,7 +82,7 @@ const FormModal = ({
         </div>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default FormModal;
+export default FormModal
