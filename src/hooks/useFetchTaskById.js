@@ -21,6 +21,7 @@ export const useFetchTaskById = (id) => {
         setIsLoaded(true);
       } catch (err) {
         setError(err);
+      } finally {
         setIsLoading(false);
       }
     };
