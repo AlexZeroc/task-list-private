@@ -16,8 +16,8 @@ import { Spinner } from 'react-bootstrap';
 const DetailTaskPage = () => {
   const { taskId } = useParams();
   const setStatus = useFetchSetStatus();
-  const [dataById, isLoading, isLoaded, error] = useFetchTaskById(+taskId);
-  const [data] = useFetchTaskList();
+  const [taskById, isLoading, isLoaded, error] = useFetchTaskById(+taskId);
+  const [tasks] = useFetchTaskList();
 
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
@@ -28,7 +28,7 @@ const DetailTaskPage = () => {
   });
 
   const handleShowEditView = (id) => {
-    const taskElement = data.find((obj) => obj.id === id);
+    const taskElement = tasks.find((obj) => obj.id === id);
 
     if (!taskElement) {
       return;
@@ -41,7 +41,7 @@ const DetailTaskPage = () => {
   };
 
   const handleShowDeleteView = (id) => {
-    const taskElement = data.find((obj) => obj.id === id);
+    const taskElement = tasks.find((obj) => obj.id === id);
     if (!taskElement) {
       return;
     }
@@ -62,7 +62,7 @@ const DetailTaskPage = () => {
     const taskContainer = (
       <DetailTaskForm
         key={+taskId}
-        task={dataById}
+        task={taskById}
         onCheckStatus={handleCheckStatus}
         onShowEditView={handleShowEditView}
         onShowDeleteView={handleShowDeleteView}

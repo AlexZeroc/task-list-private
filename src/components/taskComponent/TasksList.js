@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 const TaskList = () => {
-  const [data, isLoading, isLoaded, error] = useFetchTaskList();
+  const [tasks, isLoading, isLoaded, error] = useFetchTaskList();
   const setStatus = useFetchSetStatus();
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
@@ -21,7 +21,7 @@ const TaskList = () => {
   });
 
   const handleShowEditView = (id) => {
-    const taskElement = data.find((obj) => obj.id === id);
+    const taskElement = tasks.find((obj) => obj.id === id);
 
     if (!taskElement) {
       return;
@@ -34,7 +34,7 @@ const TaskList = () => {
   };
 
   const handleShowDeleteView = (id) => {
-    const taskElement = data.find((obj) => obj.id === id);
+    const taskElement = tasks.find((obj) => obj.id === id);
     if (!taskElement) {
       return;
     }
@@ -51,9 +51,9 @@ const TaskList = () => {
   if (isLoading) return <Spinner animation="border" variant="primary" />;
 
   if (error) return <ErrorPage />;
-
+  console.log(tasks);
   if (isLoaded) {
-    const taskListContainer = data.map((task) => (
+    const taskListContainer = tasks.map((task) => (
       <Task
         key={task.id}
         task={task}

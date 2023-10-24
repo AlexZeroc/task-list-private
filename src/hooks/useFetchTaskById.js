@@ -5,7 +5,7 @@ import { useContext, useState, useEffect } from 'react';
 
 export const useFetchTaskById = (id) => {
   const { getTaskById } = useContext(MockTasksContext);
-  const [dataById, setDataById] = useState(null);
+  const [taskById, setTaskById] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
@@ -14,19 +14,17 @@ export const useFetchTaskById = (id) => {
 
   useEffect(() => {
     const loadAllTasks = async () => {
-      setIsLoading(true);
       try {
-        const task = await fetchTaskList();
-        setDataById(task);
+        setIsLoading(true);
+        const response = await fetchTaskList();
+        setTaskById(response);
         setIsLoaded(true);
       } catch (err) {
-        setIsLoaded(false);
         setError(err);
-      } finally {
         setIsLoading(false);
       }
     };
     loadAllTasks();
-  }, [currentUserTasksById]);
-  return [dataById, isLoading, isLoaded, error];
+  }, [getTaskById]);
+  return [taskById, isLoading, isLoaded, error];
 };
