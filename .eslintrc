@@ -4,12 +4,7 @@
     "es6": true,
     "node": true
   },
-  "extends": [
-    "react-app",
-    "react-app/jest",
-    "some-other-config-you-use",
-    "prettier"
-  ],
+  "extends": ["react-app", "react-app/jest", "prettier"],
   "plugins": ["react"],
   "rules": {
     "react/prop-types": 0,
