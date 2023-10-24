@@ -7,7 +7,7 @@ import ErrorPage from '../../page/ErrorPage';
 import { useFetchTaskList } from '../../hooks/useFetchTaskList';
 import { useFetchSetStatus } from '../../hooks/useFetchSetStatus';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 const TaskList = () => {
@@ -51,7 +51,6 @@ const TaskList = () => {
   if (isLoading) return <Spinner animation="border" variant="primary" />;
 
   if (error) return <ErrorPage />;
-  console.log(tasks);
   if (isLoaded) {
     const taskListContainer = tasks.map((task) => (
       <Task

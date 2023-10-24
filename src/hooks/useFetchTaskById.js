@@ -1,7 +1,7 @@
 import MockTasksContext from '../store/task-list';
 import { wait } from '../utility/wait';
 
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useCallback } from 'react';
 
 export const useFetchTaskById = (id) => {
   const { getTaskById } = useContext(MockTasksContext);
@@ -10,7 +10,10 @@ export const useFetchTaskById = (id) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchTaskList = () => wait(500).then(() => getTaskById(id));
+  const fetchTaskList = useCallback(
+    () => wait(500).then(() => getTaskById(id)),
+    [getTaskById]
+  );
 
   useEffect(() => {
     const loadAllTasks = async () => {
