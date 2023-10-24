@@ -35,6 +35,6 @@ const DEFAULT_TASKS = [
     status: 2,
     id: 6,
   },
-]
+];
 
-export default DEFAULT_TASKS
+export default DEFAULT_TASKS;

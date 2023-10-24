@@ -1,9 +1,9 @@
-import setTaskDataStructure from './setTaskDataStructure'
+import setTaskDataStructure from './setTaskDataStructure';
 
 const reducer = (state, { type, task }) => {
   switch (type) {
     case 'add': {
-      return setTaskDataStructure([task, ...state])
+      return setTaskDataStructure([task, ...state]);
     }
 
     case 'edit': {
@@ -13,40 +13,40 @@ const reducer = (state, { type, task }) => {
             ...elementTask,
             name: task.name,
             priority: task.priority,
-          }
+          };
         } else {
-          return { ...elementTask }
+          return { ...elementTask };
         }
-      })
+      });
 
-      return setTaskDataStructure(setIsTaskData)
+      return setTaskDataStructure(setIsTaskData);
     }
 
     case 'delete': {
-      const setIsTaskData = state.filter((obj) => obj.id !== task)
+      const setIsTaskData = state.filter((obj) => obj.id !== task);
 
-      return [...setIsTaskData]
+      return [...setIsTaskData];
     }
 
     case 'setStatus': {
       const setIsStatusTask = state.map((obj) => {
         if (obj.id === task) {
           if (obj.status <= 2) {
-            return { ...obj, status: obj.status + 1 }
+            return { ...obj, status: obj.status + 1 };
           } else {
-            return { ...obj, status: 1 }
+            return { ...obj, status: 1 };
           }
         } else {
-          return obj
+          return obj;
         }
-      })
-      return setTaskDataStructure(setIsStatusTask)
+      });
+      return setTaskDataStructure(setIsStatusTask);
     }
 
     default: {
-      throw new Error()
+      throw new Error();
     }
   }
-}
+};
 
-export default reducer
+export default reducer;

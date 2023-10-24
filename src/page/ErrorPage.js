@@ -1,11 +1,11 @@
-import ModalWrapper from '../components/UI/wrapper/ModalWrapper'
+import ModalWrapper from '../components/UI/wrapper/ModalWrapper';
 
-import Alert from 'react-bootstrap/Alert'
-import Button from 'react-bootstrap/Button'
-import { useNavigate } from 'react-router-dom'
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 const ErrorPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <ModalWrapper>
       <Alert variant="danger">
@@ -19,7 +19,7 @@ const ErrorPage = () => {
         </div>
       </Alert>
     </ModalWrapper>
-  )
-}
+  );
+};
 
-export default ErrorPage
+export default ErrorPage;

@@ -1,6 +1,6 @@
-import styles from './Task.module.css'
+import styles from './Task.module.css';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const Task = ({ task, onCheckStatus, onShowEditView, onShowDeleteView }) => {
   return (
@@ -114,7 +114,7 @@ const Task = ({ task, onCheckStatus, onShowEditView, onShowDeleteView }) => {
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Task
+export default Task;

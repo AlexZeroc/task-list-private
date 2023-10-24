@@ -1,4 +1,4 @@
-import styles from './AddTaskButton.module.css'
+import styles from './AddTaskButton.module.css';
 
 const AddTaskButton = ({ showAddView }) => {
   return (
@@ -21,7 +21,7 @@ const AddTaskButton = ({ showAddView }) => {
       </span>
       Add Task
     </button>
-  )
-}
+  );
+};
 
-export default AddTaskButton
+export default AddTaskButton;
