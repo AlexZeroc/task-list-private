@@ -7,12 +7,12 @@ import ErrorPage from '../../page/ErrorPage';
 import { useFetchTaskList } from '../../hooks/useFetchTaskList';
 import { useFetchSetStatus } from '../../hooks/useFetchSetStatus';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 const TaskList = () => {
   const [tasks, isLoading, isLoaded, error] = useFetchTaskList();
-  const setStatus = useFetchSetStatus();
+  const [setStatus, errorStatus] = useFetchSetStatus();
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
   });
@@ -50,7 +50,7 @@ const TaskList = () => {
 
   if (isLoading) return <Spinner animation="border" variant="primary" />;
 
-  if (error) return <ErrorPage />;
+  if (error || errorStatus) return <ErrorPage />;
   if (isLoaded) {
     const taskListContainer = tasks.map((task) => (
       <Task

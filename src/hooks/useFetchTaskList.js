@@ -10,16 +10,17 @@ export const useFetchTaskList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const fetchTaskList = useCallback(
-    () => wait(500).then(() => getAllTasks),
+    () => wait(500).then(() => getAllTasks()),
     [getAllTasks]
   );
 
   useEffect(() => {
-    const loadAllTasks = async () => {
+    const callPromiseResponse = async () => {
       try {
         setIsLoading(true);
         const response = await fetchTaskList();
         setTasks(response);
+
         setIsLoaded(true);
       } catch (err) {
         setError(err);
@@ -27,7 +28,7 @@ export const useFetchTaskList = () => {
         setIsLoading(false);
       }
     };
-    loadAllTasks();
+    callPromiseResponse();
   }, [getAllTasks]);
   return [tasks, isLoading, isLoaded, error];
 };

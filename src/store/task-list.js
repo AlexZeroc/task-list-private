@@ -2,7 +2,7 @@ import DEFAULT_TASKS from './ConstantsVariable';
 import reducer from './reducer';
 import setTaskDataStructure from './setTaskDataStructure';
 
-import React, { useReducer, useMemo, useCallback } from 'react';
+import React, { useReducer, useCallback } from 'react';
 
 const initialState = setTaskDataStructure(DEFAULT_TASKS);
 
@@ -26,9 +26,9 @@ export const MockTasksProvider = ({ children }) => {
     dispatch({ type: 'setStatus', task });
   };
 
-  const getAllTasks = useMemo(() => {
+  const getAllTasks = () => {
     return state;
-  }, [state]);
+  };
 
   const getTaskById = useCallback(
     (id) => {

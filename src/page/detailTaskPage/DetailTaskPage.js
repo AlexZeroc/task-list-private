@@ -15,9 +15,10 @@ import { Spinner } from 'react-bootstrap';
 
 const DetailTaskPage = () => {
   const { taskId } = useParams();
-  const setStatus = useFetchSetStatus();
-  const [taskById, isLoading, isLoaded, error] = useFetchTaskById(+taskId);
-  const [tasks] = useFetchTaskList();
+  const [setStatus, errorStatus] = useFetchSetStatus();
+  const [taskById, error] = useFetchTaskById(+taskId);
+  const [tasks, isLoading, isLoaded] = useFetchTaskList();
+  console.log(isLoading);
 
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
@@ -56,7 +57,7 @@ const DetailTaskPage = () => {
 
   if (isLoading) return <Spinner animation="border" variant="primary" />;
 
-  if (error) return <ErrorPage />;
+  if (error || errorStatus) return <ErrorPage />;
 
   if (isLoaded) {
     const taskContainer = (

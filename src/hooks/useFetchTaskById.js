@@ -16,7 +16,7 @@ export const useFetchTaskById = (id) => {
   );
 
   useEffect(() => {
-    const loadAllTasks = async () => {
+    const callPromiseResponse = async () => {
       try {
         setIsLoading(true);
         const response = await fetchTaskList();
@@ -28,7 +28,7 @@ export const useFetchTaskById = (id) => {
         setIsLoading(false);
       }
     };
-    loadAllTasks();
+    callPromiseResponse();
   }, [getTaskById]);
   return [taskById, isLoading, isLoaded, error];
 };

@@ -1,5 +1,6 @@
 import ModalWrapper from '../../UI/wrapper/ModalWrapper';
 import FormModal from '../../UI/formModal/FormModal';
+import ErrorPage from '../../../page/ErrorPage';
 import { useFetchAddTask } from '../../../hooks/useFetchAddTask';
 import { useFetchTaskList } from '../../../hooks/useFetchTaskList';
 
@@ -8,8 +9,8 @@ import { useState } from 'react';
 const AddModal = ({ onSetAddView }) => {
   const [taskText, handleSetTaskText] = useState('');
   const [priority, hanldeAddPriority] = useState({ priority: 1 });
-  const data = useFetchTaskList();
-  const handleAddTask = useFetchAddTask();
+  const [tasks] = useFetchTaskList();
+  const [handleAddTask, error] = useFetchAddTask();
   const handleSetTask = (event) => {
     handleSetTaskText(event.target.value);
   };
@@ -17,13 +18,13 @@ const AddModal = ({ onSetAddView }) => {
 
   const handlePostAddFormTask = (event) => {
     event.preventDefault();
+
     handleAddTask({
       name: taskText,
       priority: priority.priority,
       status: 1,
-      id: data.length + new Date().getTime(),
+      id: tasks.length + new Date().getTime(),
     });
-
     onSetAddView((prevState) => ({
       ...prevState,
       statusAddView: false,
@@ -59,6 +60,12 @@ const AddModal = ({ onSetAddView }) => {
         break;
     }
   };
+  if (error)
+    return (
+      <ModalWrapper>
+        <ErrorPage />
+      </ModalWrapper>
+    );
 
   return (
     <ModalWrapper>

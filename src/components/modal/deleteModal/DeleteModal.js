@@ -1,12 +1,11 @@
 import styles from './DeleteModal.module.css';
 
 import ModalWrapper from '../../UI/wrapper/ModalWrapper';
+import ErrorPage from '../../../page/ErrorPage';
 import { useFetchDelete } from '../../../hooks/useFetchDelete';
 
-import { useNavigate } from 'react-router-dom';
 const DeleteModal = ({ onSetDeleteView, deleteView }) => {
-  const navigate = useNavigate();
-  const handleDeleteTask = useFetchDelete();
+  const [handleDeleteTask, error] = useFetchDelete();
   const handleDeleteTaskElement = () => {
     handleDeleteTask(deleteView.idElement);
 
@@ -14,8 +13,15 @@ const DeleteModal = ({ onSetDeleteView, deleteView }) => {
       ...prevState,
       statusDeleteView: false,
     }));
-    navigate('/');
   };
+
+  if (error)
+    return (
+      <ModalWrapper>
+        <ErrorPage />
+      </ModalWrapper>
+    );
+
   return (
     <ModalWrapper>
       <div className={styles.deleteModal}>
