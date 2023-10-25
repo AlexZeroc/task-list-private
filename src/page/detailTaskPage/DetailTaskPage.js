@@ -18,7 +18,6 @@ const DetailTaskPage = () => {
   const [setStatus, errorStatus] = useFetchSetStatus();
   const [taskById, error] = useFetchTaskById(+taskId);
   const [tasks, isLoading, isLoaded] = useFetchTaskList();
-  console.log(isLoading);
 
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
