@@ -9,7 +9,7 @@ const initialState = setTaskDataStructure(DEFAULT_TASKS);
 const MockTasksContext = React.createContext();
 export const MockTasksProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  console.log(state, 'state');
   const addTask = (task) => {
     dispatch({ type: 'add', task });
   };
@@ -38,12 +38,11 @@ export const MockTasksProvider = ({ children }) => {
     },
     [state]
   );
-
   return (
     <MockTasksContext.Provider
       value={{
-        getTaskById,
         getAllTasks,
+        state,
         updateTaskStatus,
         updateTask,
         addTask,
