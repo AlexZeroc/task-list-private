@@ -3,18 +3,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { MockTasksProvider } from './store/task-list';
+import { store } from './store/store';
 
-import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <MockTasksProvider>
-      <App />
-    </MockTasksProvider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
 
 reportWebVitals();

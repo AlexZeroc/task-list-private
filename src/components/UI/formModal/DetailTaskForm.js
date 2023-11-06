@@ -10,6 +10,29 @@ const DetailTaskForm = ({
   onShowDeleteView,
 }) => {
   const navigate = useNavigate();
+  const priorityText = {
+    1: 'Low',
+    2: 'Medium',
+    3: 'High',
+  };
+
+  const priorityColor = {
+    1: 'colorLow',
+    2: 'colorMedium',
+    3: 'colorHigh',
+  };
+
+  const statusText = {
+    1: 'Done',
+    2: 'In process',
+    3: 'To do',
+  };
+
+  const statusProgress = {
+    1: 69.115,
+    2: 34.5575,
+    3: 0,
+  };
   return (
     <div className={styles.taskCard}>
       <div className={styles.taskName}>
@@ -18,8 +41,12 @@ const DetailTaskForm = ({
       </div>
       <div className={styles.taskPriority}>
         <span className={styles.priorityTitle}>Priority</span>
-        <span className={`${styles.priority} ${styles[task.priorityColor]}`}>
-          {task.priorityText}
+        <span
+          className={`${styles.priority} ${
+            styles[priorityColor[task.priority]]
+          }`}
+        >
+          {priorityText[task.priority]}
         </span>
       </div>
       <div className={styles.taskStatus}>
@@ -27,7 +54,7 @@ const DetailTaskForm = ({
           className={styles.status}
           onClick={() => onCheckStatus(task.id)}
         >
-          {task.statusText}
+          {statusText[task.status]}
         </button>
       </div>
       <div className={styles.taskProgress}>
@@ -52,8 +79,8 @@ const DetailTaskForm = ({
             strokeWidth="2px"
             transform="rotate(-90 12 12)"
             style={{
-              strokeDasharray: `${task.statusProgress}`,
-              strokeDashoffset: `${task.statusProgress}`,
+              strokeDasharray: `${statusProgress[task.status]}`,
+              strokeDashoffset: `${statusProgress[task.status]}`,
             }}
           ></circle>
         </svg>

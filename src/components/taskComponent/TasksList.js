@@ -4,15 +4,17 @@ import Task from './Task';
 import EditModal from '../modal/editModal/EditModal';
 import DeleteModal from '../modal/deleteModal/DeleteModal';
 import ErrorPage from '../../page/ErrorPage';
-import { useFetchTaskList } from '../../hooks/useFetchTaskList';
-import { useFetchSetStatus } from '../../hooks/useFetchSetStatus';
+import {
+  useGetTasksQuery,
+  useUpdateTasksMutation,
+} from '../../store/TasksServerApi';
 
 import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 const TaskList = () => {
-  const [tasks, isLoading, isLoaded, error] = useFetchTaskList();
-  const [setStatus, errorStatus] = useFetchSetStatus();
+  const { data: tasks, isFetching, isLoading, error } = useGetTasksQuery();
+  const [setStatus] = useUpdateTasksMutation();
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
   });
@@ -45,13 +47,32 @@ const TaskList = () => {
   };
 
   const handleCheckStatus = (id) => {
-    setStatus(id);
+    const taskElement = tasks.find((obj) => obj.id === id);
+    if (!taskElement) {
+      return;
+    }
+    if (taskElement.status === 3) {
+      setStatus({
+        id: id,
+        name: taskElement.name,
+        priority: taskElement.priority,
+        status: 1,
+      });
+    } else {
+      setStatus({
+        id: id,
+        name: taskElement.name,
+        priority: taskElement.priority,
+        status: taskElement.status + 1,
+      });
+    }
   };
 
-  if (isLoading) return <Spinner animation="border" variant="primary" />;
+  if (isLoading || isFetching)
+    return <Spinner animation="border" variant="primary" />;
 
-  if (error || errorStatus) return <ErrorPage />;
-  if (isLoaded) {
+  if (error) return <ErrorPage />;
+  if (tasks) {
     const taskListContainer = tasks.map((task) => (
       <Task
         key={task.id}

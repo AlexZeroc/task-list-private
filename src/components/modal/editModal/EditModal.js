@@ -1,13 +1,12 @@
 import ModalWrapper from '../../UI/wrapper/ModalWrapper';
 import FormModal from '../../UI/formModal/FormModal';
-import ErrorPage from '../../../page/ErrorPage';
-import { useFetchPostTaskList } from '../../../hooks/useFetchPostTaskList';
+import { useUpdateTasksMutation } from '../../../store/TasksServerApi';
 
 import { useState } from 'react';
 
 const EditModal = ({ editView, onSetEditView }) => {
   const [taskText, handleSetTaskText] = useState('');
-  const [hanldeEditTask, error] = useFetchPostTaskList();
+  const [hanldeEditTask] = useUpdateTasksMutation();
   const defaultText = editView.name;
   const handleSetTask = (event) => {
     handleSetTaskText(event.target.value);
@@ -15,10 +14,12 @@ const EditModal = ({ editView, onSetEditView }) => {
 
   const handlePostEditFormTask = (event) => {
     event.preventDefault();
+
     hanldeEditTask({
       id: editView.id,
       name: taskText,
       priority: editView.priority,
+      status: editView.status,
     });
     onSetEditView((prevState) => ({
       ...prevState,
@@ -58,13 +59,6 @@ const EditModal = ({ editView, onSetEditView }) => {
         break;
     }
   };
-
-  if (error)
-    return (
-      <ModalWrapper>
-        <ErrorPage />
-      </ModalWrapper>
-    );
 
   return (
     <ModalWrapper>

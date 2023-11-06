@@ -5,9 +5,10 @@ import DetailTaskForm from '../../components/UI/formModal/DetailTaskForm';
 import EditModal from '../../components/modal/editModal/EditModal';
 import DeleteModal from '../../components/modal/deleteModal/DeleteModal';
 import Wrapper from '../../components/UI/wrapper/Wrapper';
-import { useFetchTaskById } from '../../hooks/useFetchTaskById';
-import { useFetchSetStatus } from '../../hooks/useFetchSetStatus';
-import { useFetchTaskList } from '../../hooks/useFetchTaskList';
+import {
+  useGetTasksByIdQuery,
+  useUpdateTasksMutation,
+} from '../../store/TasksServerApi';
 
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -15,9 +16,14 @@ import { Spinner } from 'react-bootstrap';
 
 const DetailTaskPage = () => {
   const { taskId } = useParams();
-  const [setStatus, errorStatus] = useFetchSetStatus();
-  const [taskById, error] = useFetchTaskById(+taskId);
-  const [tasks, isLoading, isLoaded] = useFetchTaskList();
+
+  const [setStatus] = useUpdateTasksMutation();
+  const {
+    data: taskById,
+    isFetching,
+    isLoading,
+    error,
+  } = useGetTasksByIdQuery(taskId);
 
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
@@ -28,37 +34,42 @@ const DetailTaskPage = () => {
   });
 
   const handleShowEditView = (id) => {
-    const taskElement = tasks.find((obj) => obj.id === id);
-
-    if (!taskElement) {
-      return;
-    }
-
     handleSetEditView({
       statusEditView: true,
-      ...taskElement,
+      ...taskById,
     });
   };
 
   const handleShowDeleteView = (id) => {
-    const taskElement = tasks.find((obj) => obj.id === id);
-    if (!taskElement) {
-      return;
-    }
     handleSetDeleteView({
       statusDeleteView: true,
-      idElement: taskElement.id,
+      idElement: taskById.id,
     });
   };
   const handleCheckStatus = (id) => {
-    setStatus(id);
+    if (taskById.status === 3) {
+      setStatus({
+        id: id,
+        name: taskById.name,
+        priority: taskById.priority,
+        status: 1,
+      });
+    } else {
+      setStatus({
+        id: id,
+        name: taskById.name,
+        priority: taskById.priority,
+        status: taskById.status + 1,
+      });
+    }
   };
 
-  if (isLoading) return <Spinner animation="border" variant="primary" />;
+  if (isLoading || isFetching)
+    return <Spinner animation="border" variant="primary" />;
 
-  if (error || errorStatus) return <ErrorPage />;
+  if (error) return <ErrorPage />;
 
-  if (isLoaded) {
+  if (taskById) {
     const taskContainer = (
       <DetailTaskForm
         key={+taskId}
