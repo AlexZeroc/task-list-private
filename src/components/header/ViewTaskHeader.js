@@ -15,13 +15,13 @@ const ViewTaskHeader = () => {
   };
 
   return (
-    <>
+    <header role="heading" aria-level={1}>
       <div className={styles.topTitle}>
         <h1>Task List</h1>
         <AddTaskButton showAddView={showAddView} />
       </div>
       {addView.statusAddView && <AddModal onSetAddView={onSetAddView} />}
-    </>
+    </header>
   );
 };
 

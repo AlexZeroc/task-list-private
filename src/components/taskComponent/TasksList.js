@@ -84,7 +84,7 @@ const TaskList = () => {
     ));
 
     return (
-      <>
+      <menu role="menu">
         <div className={styles.container}>{taskListContainer}</div>
         {editView.statusEditView && (
           <EditModal editView={editView} onSetEditView={handleSetEditView} />
@@ -95,7 +95,7 @@ const TaskList = () => {
             onSetDeleteView={handleSetDeleteView}
           />
         )}
-      </>
+      </menu>
     );
   }
 };

@@ -4,7 +4,7 @@ import DetailTaskPage from './page/detailTaskPage/DetailTaskPage';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: '/',
     errorElement: <ErrorPage />,
