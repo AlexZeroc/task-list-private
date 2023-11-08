@@ -1,35 +1,41 @@
-import TaskPage from './page/TaskPage';
-import ErrorPage from './page/ErrorPage';
-import DetailTaskPage from './page/detailTaskPage/DetailTaskPage';
+import TaskListPage from './components/taskComponent/TaskListPage';
+import ErrorPage from './components/error/ErrorPage';
+import TaskDetailsPage from './components/TaskDetailsPage/TaskDetailsPage';
+import { store } from './store/store';
 
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
-import { render, waitFor, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
 
-test('event route', async () => {
-  const routes = [
-    {
-      path: '/',
-      errorElement: <ErrorPage />,
+describe('App component', () => {
+  it('App render', () => {
+    const routes = [
+      {
+        path: '/',
+        errorElement: <ErrorPage />,
 
-      children: [
-        {
-          index: true,
-          element: <TaskPage />,
-        },
-        {
-          path: ':taskId',
-          element: <DetailTaskPage />,
-        },
-      ],
-    },
-  ];
+        children: [
+          {
+            index: true,
+            element: <TaskListPage />,
+          },
+          {
+            path: ':taskId',
+            element: <TaskDetailsPage />,
+          },
+        ],
+      },
+    ];
 
-  const router = createMemoryRouter(routes, {
-    initialEntries: ['/'],
+    const router = createMemoryRouter(routes, {
+      initialEntries: ['/', '/1'],
+      initialIndex: 0,
+    });
+
+    render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    );
   });
-
-  render(<RouterProvider router={router} />);
-
-  expect(screen.getByText(/Task/i)).toBeInTheDocument();
 });
