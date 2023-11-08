@@ -1,4 +1,4 @@
-import ModalWrapper from '../components/UI/wrapper/ModalWrapper';
+import ModalWrapper from '../UI/wrapper/ModalWrapper';
 
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';

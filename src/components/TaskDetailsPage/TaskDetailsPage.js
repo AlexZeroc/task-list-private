@@ -1,20 +1,20 @@
-import styles from './DetailTaskPage.module.css';
+import styles from './TaskDetailsPage.module.css';
 
-import ErrorPage from '../ErrorPage';
-import DetailTaskForm from '../../components/UI/formModal/DetailTaskForm';
-import EditModal from '../../components/modal/editModal/EditModal';
-import DeleteModal from '../../components/modal/deleteModal/DeleteModal';
-import Wrapper from '../../components/UI/wrapper/Wrapper';
+import ErrorPage from '../error/ErrorPage';
+import TaskDetailForm from '../UI/forms/TaskDetailForm';
+import EditModal from '../modal/editModal/EditModal';
+import DeleteModal from '../modal/deleteModal/DeleteModal';
+import Wrapper from '../UI/wrapper/Wrapper';
 import {
-  useGetTasksByIdQuery,
+  useGetTaskByIdQuery,
   useUpdateTasksMutation,
-} from '../../store/TasksServerApi';
+} from '../../store/TasksApi';
 
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 
-const DetailTaskPage = () => {
+const TaskDetailsPage = () => {
   const { taskId } = useParams();
 
   const [setStatus] = useUpdateTasksMutation();
@@ -23,7 +23,7 @@ const DetailTaskPage = () => {
     isFetching,
     isLoading,
     error,
-  } = useGetTasksByIdQuery(taskId);
+  } = useGetTaskByIdQuery(taskId);
 
   const [editView, handleSetEditView] = useState({
     statusEditView: false,
@@ -46,7 +46,7 @@ const DetailTaskPage = () => {
       idElement: taskById.id,
     });
   };
-  const handleCheckStatus = (id) => {
+  const handleChangeStatus = (id) => {
     if (taskById.status === 3) {
       setStatus({
         id: id,
@@ -71,10 +71,10 @@ const DetailTaskPage = () => {
 
   if (taskById) {
     const taskContainer = (
-      <DetailTaskForm
+      <TaskDetailForm
         key={+taskId}
         task={taskById}
-        onCheckStatus={handleCheckStatus}
+        onChangeStatus={handleChangeStatus}
         onShowEditView={handleShowEditView}
         onShowDeleteView={handleShowDeleteView}
       />
@@ -97,4 +97,4 @@ const DetailTaskPage = () => {
   }
 };
 
-export default DetailTaskPage;
+export default TaskDetailsPage;

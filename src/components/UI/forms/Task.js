@@ -1,15 +1,8 @@
-import styles from './DetailTaskForm.module.css';
+import styles from './Task.module.css';
 
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const DetailTaskForm = ({
-  task,
-  onCheckStatus,
-  onShowEditView,
-  onShowDeleteView,
-}) => {
-  const navigate = useNavigate();
+const Task = ({ task, onChangeStatus, onShowEditView, onShowDeleteView }) => {
   const priorityText = {
     1: 'Low',
     2: 'Medium',
@@ -52,7 +45,7 @@ const DetailTaskForm = ({
       <div className={styles.taskStatus}>
         <button
           className={styles.status}
-          onClick={() => onCheckStatus(task.id)}
+          onClick={() => onChangeStatus(task.id)}
         >
           {statusText[task.status]}
         </button>
@@ -118,12 +111,37 @@ const DetailTaskForm = ({
             fill="#F65160"
           ></path>
         </svg>
+        <Link to={`${task.id}`}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000000"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={styles.ActionNotes}
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"
+              fill="#4169e1"
+            />
+
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M14 3v5h5M16 13H8M16 17H8M10 9H8"
+              fill="#4169e1"
+            />
+          </svg>
+        </Link>
       </div>
-      <Button onClick={() => navigate('/')} variant="outline-primary">
-        Back
-      </Button>
     </div>
   );
 };
 
-export default DetailTaskForm;
+export default Task;

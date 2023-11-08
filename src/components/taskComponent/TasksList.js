@@ -1,13 +1,10 @@
 import styles from './TaskList.module.css';
-import Task from './Task';
 
+import Task from '../UI/forms/Task';
 import EditModal from '../modal/editModal/EditModal';
 import DeleteModal from '../modal/deleteModal/DeleteModal';
-import ErrorPage from '../../page/ErrorPage';
-import {
-  useGetTasksQuery,
-  useUpdateTasksMutation,
-} from '../../store/TasksServerApi';
+import ErrorPage from '../error/ErrorPage';
+import { useGetTasksQuery, useUpdateTasksMutation } from '../../store/TasksApi';
 
 import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
@@ -46,7 +43,7 @@ const TaskList = () => {
     });
   };
 
-  const handleCheckStatus = (id) => {
+  const handleChangeStatus = (id) => {
     const taskElement = tasks.find((obj) => obj.id === id);
     if (!taskElement) {
       return;
@@ -77,7 +74,7 @@ const TaskList = () => {
       <Task
         key={task.id}
         task={task}
-        onCheckStatus={handleCheckStatus}
+        onChangeStatus={handleChangeStatus}
         onShowEditView={handleShowEditView}
         onShowDeleteView={handleShowDeleteView}
       />

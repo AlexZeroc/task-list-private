@@ -1,6 +1,6 @@
-import TaskPage from './page/TaskPage';
-import ErrorPage from './page/ErrorPage';
-import DetailTaskPage from './page/detailTaskPage/DetailTaskPage';
+import TaskListPage from './components/taskComponent/TaskListPage';
+import ErrorPage from './components/error/ErrorPage';
+import TaskDetailsPage from './components/TaskDetailsPage/TaskDetailsPage';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -12,11 +12,11 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <TaskPage />,
+        element: <TaskListPage />,
       },
       {
         path: ':taskId',
-        element: <DetailTaskPage />,
+        element: <TaskDetailsPage />,
       },
     ],
   },

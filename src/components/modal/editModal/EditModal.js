@@ -1,6 +1,6 @@
 import ModalWrapper from '../../UI/wrapper/ModalWrapper';
-import FormModal from '../../UI/formModal/FormModal';
-import { useUpdateTasksMutation } from '../../../store/TasksServerApi';
+import FormModal from '../../UI/forms/FormModal';
+import { useUpdateTasksMutation } from '../../../store/TasksApi';
 
 import { useState } from 'react';
 

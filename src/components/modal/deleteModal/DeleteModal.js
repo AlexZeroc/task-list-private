@@ -1,7 +1,7 @@
 import styles from './DeleteModal.module.css';
 
 import ModalWrapper from '../../UI/wrapper/ModalWrapper';
-import { useDeleteTasksMutation } from '../../../store/TasksServerApi';
+import { useDeleteTasksMutation } from '../../../store/TasksApi';
 
 import { useNavigate } from 'react-router-dom';
 

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const TasksServerApi = createApi({
-  reducerPath: 'TasksServerApi',
+export const TasksApi = createApi({
+  reducerPath: 'TasksApi',
   baseQuery: fetchBaseQuery({
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
@@ -22,7 +22,7 @@ export const TasksServerApi = createApi({
             ]
           : [{ type: 'Tasks', id: 'LIST' }],
     }),
-    getTasksById: builder.query({
+    getTaskById: builder.query({
       query: (id) => `/tasks/${id}`,
       providesTags: [{ type: 'Tasks', id: 'LIST' }],
     }),
@@ -56,8 +56,8 @@ export const TasksServerApi = createApi({
 
 export const {
   useGetTasksQuery,
-  useGetTasksByIdQuery,
+  useGetTaskByIdQuery,
   useCreateTasksMutation,
   useUpdateTasksMutation,
   useDeleteTasksMutation,
-} = TasksServerApi;
+} = TasksApi;
