@@ -40,7 +40,7 @@ const TaskDetailsPage = () => {
     });
   };
 
-  const handleShowDeleteView = (id) => {
+  const handleShowDeleteView = () => {
     handleSetDeleteView({
       statusDeleteView: true,
       idElement: taskById.id,

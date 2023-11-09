@@ -3,12 +3,13 @@ import ErrorPage from './components/error/ErrorPage';
 import TaskDetailsPage from './components/TaskDetailsPage/TaskDetailsPage';
 import { store } from './store/store';
 
-import { RouterProvider, createMemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
-describe('App component', () => {
-  it('App render', () => {
+import { RouterProvider, createMemoryRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
+
+describe('app components test', () => {
+  it('App render test', () => {
     const routes = [
       {
         path: '/',
@@ -28,10 +29,11 @@ describe('App component', () => {
     ];
 
     const router = createMemoryRouter(routes, {
-      initialEntries: ['/', '/1'],
+      initialEntries: ['/'],
       initialIndex: 0,
     });
 
+    // Arrange
     render(
       <Provider store={store}>
         <RouterProvider router={router} />
