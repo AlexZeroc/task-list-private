@@ -1,0 +1,54 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["react-app", "react-app/jest", "prettier"],
+  "plugins": ["react"],
+  "rules": {
+    "react/prop-types": 0,
+    "no-console": "warn",
+    "no-const-assign": "error",
+    "no-empty-pattern": "error",
+    "arrow-parens": ["error", "always"],
+    "max-len": ["error", { "code": 1400, "ignoreUrls": true }],
+    "react/jsx-indent-props": [0, "tab"],
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+
+    "eqeqeq": ["error", "smart"],
+    "no-var": "error",
+    "prefer-exponentiation-operator": "error",
+    "key-spacing": [
+      "error",
+      {
+        "beforeColon": false,
+        "afterColon": true,
+        "mode": "strict"
+      }
+    ],
+    "semi": ["warn", "always"],
+    "eol-last": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "index",
+          "sibling",
+          "parent",
+          "internal",
+          "external",
+          "builtin",
+          "object",
+          "type"
+        ],
+        "newlines-between": "always"
+      }
+    ]
+  }
+}
