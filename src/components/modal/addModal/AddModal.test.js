@@ -1,15 +1,21 @@
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import AddModal from './AddModal';
 import { store } from '../../../store/store';
-import { render, screen } from '@testing-library/react';
 
-describe('AddModal components', () => {
-  it('AddModal renders', () => {
-    // Arrange
-    render(
-      <Provider store={store}>
-        <AddModal />
-      </Provider>
-    );
-  });
+test('AddModal components test', () => {
+  // ARRANGE
+  render(
+    <Provider store={store}>
+      <AddModal />
+    </Provider>
+  );
+
+  // ACT
+  const linkElement = screen.getByText(/Your task/i);
+  const btn = screen.getByRole('button');
+
+  // ASSERT
+  expect(linkElement).toBeInTheDocument();
+  expect(btn).toHaveTextContent('Add');
 });

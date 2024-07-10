@@ -1,18 +1,21 @@
 import { render, screen } from '@testing-library/react';
+import TaskListPage from './TaskListPage';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
-import TaskDetailsPage from './TaskDetailsPage';
 
 test('TaskListPage components test', () => {
   // ARRANGE
   render(
     <Provider store={store}>
-      <TaskDetailsPage />
+      <TaskListPage />
     </Provider>
   );
+
   // ACT
-  const spinnerElement = screen.getByTestId('spinner');
+  const linkElement = screen.getByText(/Task List/i);
+  const btn = screen.getByRole('button');
 
   // ASSERT
-  expect(spinnerElement).toBeInTheDocument();
+  expect(linkElement).toBeInTheDocument();
+  expect(btn).toHaveTextContent('Add Task');
 });

@@ -1,14 +1,16 @@
+import { render, screen } from '@testing-library/react';
 import ViewTaskHeader from './ViewTaskHeader';
 
-import { render, screen } from '@testing-library/react';
+test('ViewTaskHeader component test', () => {
+  // ARRANGE
+  render(<ViewTaskHeader />);
 
-describe('Header components', () => {
-  it('Header renders', () => {
-    // Arrange
-    render(<ViewTaskHeader />);
-    // ASSERT
-    expect(screen.getByRole('button')).toBeInTheDocument();
-    expect(screen.getByText(/Task List/i)).toBeInTheDocument();
-    expect(screen.getByText(/Add Task/i)).toBeInTheDocument();
-  });
+  // ACT
+  const linkElement = screen.getByText(/Task List/i);
+  const btn = screen.getByRole('button');
+
+  // ASSERT
+  expect(linkElement).toBeInTheDocument();
+  expect(btn).toHaveTextContent('Add Task');
 });
+

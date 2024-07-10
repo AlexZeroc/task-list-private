@@ -65,7 +65,7 @@ const TaskDetailsPage = () => {
   };
 
   if (isLoading || isFetching)
-    return <Spinner animation="border" variant="primary" />;
+    return <Spinner data-testid="spinner" animation="border" variant="primary" />;
 
   if (error) return <ErrorPage />;
 
